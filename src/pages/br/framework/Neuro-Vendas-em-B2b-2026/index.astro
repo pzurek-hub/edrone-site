@@ -1,0 +1,277 @@
+---
+export const prerender = true;
+
+import LandingLayout from '../../../../layouts/LandingLayout.astro';
+---
+
+<LandingLayout
+  title="Neurociência em Vendas B2B | edrone"
+  description="Neurociência e psicologia aplicadas às ligações frias B2B — como quebrar padrões, ativar gatilhos e vender com mais eficácia."
+  lang="pt-BR"
+  googleFont="Inter:wght@400;600;700;900"
+>
+
+<style>
+    :root { --black:#0A0A0A;--gray:#1a1a1a;--gray2:#2a2a2a; }
+    body{font-family:'Inter',Arial,sans-serif;background:var(--black);color:var(--white);line-height:1.6;overflow-x:hidden}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 2.5rem;background:rgba(10,10,10,0.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,140,0.15)}
+    .nav-logo{font-size:1.1rem;font-weight:900;letter-spacing:-.03em;color:var(--yellow)}
+    .nav-logo span{color:var(--white)}
+    nav ul{list-style:none;display:flex;gap:2rem}
+    nav ul a{color:rgba(255,255,255,0.65);text-decoration:none;font-size:.85rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;transition:color .2s}
+    nav ul a:hover{color:var(--yellow)}
+    .hero{min-height:100vh;background:var(--yellow);display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:8rem 2.5rem 4rem;position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;top:-60px;right:-60px;width:420px;height:420px;border-radius:50%;background:rgba(0,0,0,0.06)}
+    .hero-badge{display:inline-block;background:var(--black);color:var(--yellow);font-size:.7rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;padding:.35rem .9rem;border-radius:2px;margin-bottom:1.8rem}
+    .hero h1{font-size:clamp(2.8rem,7vw,6rem);font-weight:900;color:var(--black);line-height:1.0;letter-spacing:-.04em;max-width:780px;margin-bottom:1.6rem}
+    .hero p{font-size:1.2rem;color:rgba(0,0,0,0.65);max-width:560px;margin-bottom:2.8rem;font-weight:500}
+    .hero-cta{display:flex;gap:1rem;flex-wrap:wrap}
+    .btn-primary{background:var(--black);color:var(--yellow);font-size:.9rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:1rem 2.2rem;border-radius:3px;transition:transform .2s}
+    .btn-primary:hover{transform:translateY(-2px)}
+    .btn-secondary{background:transparent;color:var(--black);font-size:.9rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:1rem 2.2rem;border:2px solid var(--black);border-radius:3px;transition:background .2s,color .2s}
+    .btn-secondary:hover{background:var(--black);color:var(--yellow)}
+    .hero-stats{position:absolute;bottom:3rem;right:2.5rem;display:flex;gap:2.5rem}
+    .hero-stat .num{font-size:2.2rem;font-weight:900;color:var(--black);letter-spacing:-.04em}
+    .hero-stat .label{font-size:.7rem;font-weight:700;color:rgba(0,0,0,0.5);text-transform:uppercase;letter-spacing:.08em}
+    section{padding:6rem 2.5rem}
+    .container{max-width:1100px;margin:0 auto}
+    .section-label{font-size:.7rem;font-weight:900;letter-spacing:.15em;text-transform:uppercase;color:var(--yellow);margin-bottom:1rem;display:block}
+    h2{font-size:clamp(1.8rem,4vw,3rem);font-weight:900;letter-spacing:-.03em;line-height:1.1;margin-bottom:1.2rem}
+    .section-intro{font-size:1.05rem;color:rgba(255,255,255,0.6);max-width:580px;margin-bottom:3.5rem}
+    .stats-strip{background:var(--gray);padding:4rem 2.5rem}
+    .stats-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem}
+    .stat-card{border-left:3px solid var(--yellow);padding:0 0 0 1.5rem}
+    .stat-card .big{font-size:3rem;font-weight:900;color:var(--yellow);letter-spacing:-.04em;line-height:1}
+    .stat-card .desc{font-size:.85rem;color:rgba(255,255,255,0.55);margin-top:.4rem;line-height:1.4}
+    .brain-section{background:var(--black)}
+    .systems-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1rem}
+    .system-card{background:var(--gray);border-radius:4px;padding:2rem;border-top:4px solid var(--yellow);transition:transform .2s}
+    .system-card:hover{transform:translateY(-4px)}
+    .system-card .sys-num{font-size:3.5rem;font-weight:900;color:var(--yellow);letter-spacing:-.06em;line-height:1}
+    .system-card h3{font-size:1.2rem;font-weight:900;margin:.4rem 0 1rem}
+    .system-card p{font-size:.9rem;color:rgba(255,255,255,0.6);line-height:1.6}
+    .system-card ul{list-style:none;margin-top:1rem;display:flex;flex-direction:column;gap:.4rem}
+    .system-card ul li{font-size:.85rem;color:rgba(255,255,255,0.55);padding-left:1rem;position:relative}
+    .system-card ul li::before{content:'→';position:absolute;left:0;color:var(--yellow)}
+    .amygdala-section{background:var(--yellow);color:var(--black)}
+    .amygdala-section .section-label{color:rgba(0,0,0,0.4)}
+    .amygdala-section h2,.amygdala-section .section-intro{color:rgba(0,0,0,0.75)}
+    .defense-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+    .defense-card{background:rgba(0,0,0,0.08);border-radius:4px;padding:1.8rem;border-bottom:3px solid rgba(0,0,0,0.2)}
+    .defense-card .icon{font-size:2.2rem;margin-bottom:.8rem;display:block}
+    .defense-card h3{font-size:1rem;font-weight:900;margin-bottom:.5rem}
+    .defense-card p{font-size:.85rem;color:rgba(0,0,0,0.65);line-height:1.5}
+    .amygdala-tip{margin-top:2.5rem;background:var(--black);color:var(--yellow);padding:1.6rem 2rem;border-radius:4px;font-size:1rem;font-weight:700;line-height:1.5}
+    .amygdala-tip strong{display:block;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;opacity:.6;margin-bottom:.4rem}
+    .pattern-section{background:var(--gray)}
+    .step{display:grid;grid-template-columns:80px 1fr;gap:1.5rem;padding:2rem 0;border-bottom:1px solid rgba(255,255,255,0.07)}
+    .step:last-child{border-bottom:none}
+    .step-num{font-size:3.5rem;font-weight:900;color:var(--yellow);letter-spacing:-.06em;line-height:1}
+    .step-content h3{font-size:1.1rem;font-weight:900;margin-bottom:.5rem}
+    .step-content p{font-size:.9rem;color:rgba(255,255,255,0.6);line-height:1.6}
+    .step-script{margin-top:.8rem;background:rgba(255,255,140,0.08);border-left:3px solid var(--yellow);padding:.8rem 1rem;font-size:.85rem;color:rgba(255,255,255,0.8);font-style:italic;border-radius:0 3px 3px 0}
+    .triggers-section{background:var(--black)}
+    .triggers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+    .trigger-card{background:var(--gray2);border-radius:4px;padding:1.8rem;position:relative;overflow:hidden}
+    .trigger-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--yellow)}
+    .trigger-card .t-num{font-size:.7rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow);margin-bottom:.5rem}
+    .trigger-card h3{font-size:1.05rem;font-weight:900;margin-bottom:.6rem}
+    .trigger-card p{font-size:.85rem;color:rgba(255,255,255,0.55);line-height:1.5;margin-bottom:.8rem}
+    .trigger-card .example{font-size:.82rem;color:rgba(255,255,140,0.8);font-style:italic;background:rgba(255,255,140,0.05);padding:.5rem .8rem;border-radius:3px}
+    .errors-section{background:var(--yellow);color:var(--black)}
+    .errors-section .section-label{color:rgba(0,0,0,0.4)}
+    .errors-section h2{color:var(--black)}
+    .errors-section .section-intro{color:rgba(0,0,0,0.6)}
+    .errors-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+    .error-card{background:rgba(0,0,0,0.07);border-radius:4px;padding:1.5rem 1.5rem 1.5rem 5rem;position:relative}
+    .error-card .e-num{position:absolute;left:1.2rem;top:1.4rem;font-size:2rem;font-weight:900;color:rgba(0,0,0,0.18);letter-spacing:-.06em;line-height:1}
+    .error-card h3{font-size:.95rem;font-weight:900;margin-bottom:.4rem}
+    .error-card p{font-size:.83rem;color:rgba(0,0,0,0.65);line-height:1.5}
+    .error-card .fix{margin-top:.6rem;font-size:.8rem;font-weight:700;color:var(--black);background:rgba(0,0,0,0.1);padding:.35rem .7rem;border-radius:2px;display:inline-block}
+    .script-section{background:var(--gray)}
+    .script-block{background:var(--black);border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,140,0.15)}
+    .script-header{background:var(--yellow);color:var(--black);padding:.9rem 1.5rem;font-size:.7rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+    .script-row{display:grid;grid-template-columns:120px 1fr;border-bottom:1px solid rgba(255,255,255,0.06)}
+    .script-row:last-child{border-bottom:none}
+    .script-phase{padding:1.2rem 1rem;background:rgba(255,255,140,0.05);font-size:.72rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--yellow);border-right:1px solid rgba(255,255,140,0.1)}
+    .script-text{padding:1.2rem 1.5rem;font-size:.9rem;color:rgba(255,255,255,0.85);line-height:1.6}
+    .script-note{padding:.5rem 1.5rem 0;font-size:.78rem;color:rgba(255,255,140,0.6);font-style:italic}
+    .neuro-section{background:var(--black)}
+    .neuro-row{display:grid;grid-template-columns:80px 1fr;gap:2rem;padding:1.8rem 0;border-bottom:1px solid rgba(255,255,255,0.07);align-items:start}
+    .neuro-row:last-child{border-bottom:none}
+    .neuro-letter{font-size:4.5rem;font-weight:900;color:var(--yellow);letter-spacing:-.06em;line-height:1}
+    .neuro-content h3{font-size:1.1rem;font-weight:900;color:var(--yellow);margin-bottom:.3rem}
+    .neuro-content p{font-size:.9rem;color:rgba(255,255,255,0.6);line-height:1.6}
+    .neuro-content .action{font-size:.83rem;color:rgba(255,255,255,0.85);margin-top:.6rem;font-weight:600}
+    .exercises-section{background:var(--yellow);color:var(--black)}
+    .exercises-section .section-label{color:rgba(0,0,0,0.4)}
+    .exercises-section h2{color:var(--black)}
+    .exercises-section .section-intro{color:rgba(0,0,0,0.6)}
+    .exercises-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+    .exercise-card{background:var(--black);color:var(--white);border-radius:4px;padding:1.8rem}
+    .exercise-card .e-tag{font-size:.65rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow);margin-bottom:.6rem;display:block}
+    .exercise-card h3{font-size:1rem;font-weight:900;color:var(--yellow);margin-bottom:.6rem}
+    .exercise-card p{font-size:.85rem;color:rgba(255,255,255,0.6);line-height:1.5}
+    .exercise-card .duration{margin-top:1rem;font-size:.75rem;font-weight:700;color:rgba(255,255,140,0.6);text-transform:uppercase;letter-spacing:.08em}
+    .closing-section{background:var(--yellow);min-height:70vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:6rem 2.5rem}
+    .closing-inner{max-width:700px}
+    .closing-inner .big-text{font-size:clamp(1rem,2.5vw,1.3rem);font-weight:700;color:rgba(0,0,0,0.5);margin-bottom:1rem}
+    .closing-inner h2{font-size:clamp(2.5rem,6vw,5rem);font-weight:900;color:var(--black);letter-spacing:-.04em;margin-bottom:1.5rem}
+    .closing-inner p{font-size:1rem;color:rgba(0,0,0,0.6);margin-bottom:2.5rem;line-height:1.6}
+    footer{background:var(--black);border-top:1px solid rgba(255,255,140,0.1);padding:2.5rem;text-align:center}
+    footer p{font-size:.8rem;color:rgba(255,255,255,0.3)}
+    footer strong{color:var(--yellow)}
+    @media(max-width:768px){nav ul{display:none}.hero{padding:7rem 1.5rem 6rem}.hero-stats{position:static;flex-direction:row;justify-content:flex-start;margin-top:3rem}section{padding:4rem 1.5rem}.systems-grid,.defense-grid,.errors-grid,.exercises-grid{grid-template-columns:1fr}.script-row{grid-template-columns:1fr}.script-phase{border-right:none;border-bottom:1px solid rgba(255,255,140,0.1)}}
+</style>
+
+<nav>
+  <div class="nav-logo">edrone<span> × Neuro</span></div>
+  <ul>
+    <li><a href="#cerebro">Cérebro</a></li>
+    <li><a href="#padrao">Padrão</a></li>
+    <li><a href="#gatilhos">Gatilhos</a></li>
+    <li><a href="#script">Script</a></li>
+    <li><a href="#framework">N.E.U.R.O</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="topo">
+  <span class="hero-badge">edrone BDR Academy</span>
+  <h1>O Cérebro do seu<br><em style="font-style:normal;text-decoration:underline;text-decoration-color:rgba(0,0,0,0.3)">Prospect</em> decide<br>em 7 segundos.</h1>
+  <p>Neurociência e psicologia aplicadas às ligações frias B2B — como quebrar padrões, ativar gatilhos e vender com mais eficácia.</p>
+  <div class="hero-cta"><a href="#cerebro" class="btn-primary">Começar leitura</a><a href="#framework" class="btn-secondary">Ver o Framework</a></div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">97%</div><div class="label">Ligações ignoradas</div></div>
+    <div class="hero-stat"><div class="num">7s</div><div class="label">Janela de decisão</div></div>
+    <div class="hero-stat"><div class="num">3x</div><div class="label">Mais conversão c/ neuro</div></div>
+  </div>
+</section>
+
+<div class="stats-strip"><div class="stats-grid">
+  <div class="stat-card"><div class="big">97%</div><div class="desc">das ligações frias B2B terminam sem reunião agendada — a maioria falha antes do pitch começar</div></div>
+  <div class="stat-card"><div class="big">7s</div><div class="desc">é o tempo médio que o cérebro leva para categorizar uma ligação como "ameaça" ou "oportunidade"</div></div>
+  <div class="stat-card"><div class="big">95%</div><div class="desc">das decisões humanas são tomadas pelo Sistema 1 — automático, emocional e irracional</div></div>
+  <div class="stat-card"><div class="big">+340%</div><div class="desc">de aumento na taxa de conexão quando BDRs usam técnicas de pattern interrupt comprovadas</div></div>
+</div></div>
+
+<section class="brain-section" id="cerebro"><div class="container">
+  <span class="section-label">Neurociência Aplicada</span>
+  <h2>Seu prospect tem dois<br>cérebros. Você fala com o errado.</h2>
+  <p class="section-intro">Daniel Kahneman identificou dois sistemas de pensamento que controlam todas as nossas decisões — e os BDRs quase sempre ativam o sistema errado.</p>
+  <div class="systems-grid">
+    <div class="system-card"><div class="sys-num">S1</div><h3>Sistema 1 — Automático</h3><p>Rápido, emocional, inconsciente. Processa 11 milhões de bits/seg. Usa heurísticas, padrões e emoções para decidir instantaneamente.</p><ul><li>Ativado em milissegundos</li><li>Responsável por 95% das decisões</li><li>Guiado por emoção e familiaridade</li><li>Onde o pattern interrupt atua</li></ul></div>
+    <div class="system-card"><div class="sys-num">S2</div><h3>Sistema 2 — Racional</h3><p>Lento, lógico, consciente. Consome muita energia mental. Entra em ação apenas quando o Sistema 1 não consegue decidir.</p><ul><li>Ativado intencionalmente</li><li>Responsável por ~5% das decisões</li><li>Guiado por dados e argumentos</li><li>Onde a maioria dos pitches tenta agir</li></ul></div>
+  </div>
+</div></section>
+
+<section class="amygdala-section" id="amigdala"><div class="container">
+  <span class="section-label">Resposta de Defesa</span>
+  <h2>A amígdala dispara antes<br>do prospect perceber.</h2>
+  <p class="section-intro">Quando o telefone toca com um número desconhecido, o cérebro assume: perigo. Você tem milissegundos para mudar esse estado.</p>
+  <div class="defense-grid">
+    <div class="defense-card"><span class="icon">⚡</span><h3>Luta</h3><p>O prospect fica agressivo, interrompe, questiona tudo antes mesmo de ouvir. Sinal: "Você tem 30 segundos."</p></div>
+    <div class="defense-card"><span class="icon">🏃</span><h3>Fuga</h3><p>Desculpas rápidas, "estou em reunião", "me manda um e-mail". Modo escape ativado.</p></div>
+    <div class="defense-card"><span class="icon">🧊</span><h3>Congelamento</h3><p>Silêncio, respostas monossilábicas, "hm... sim...". O cérebro travou no modo de espera.</p></div>
+  </div>
+  <div class="amygdala-tip"><strong>Estratégia Neuro</strong>O antídoto é o padrão inesperado: uma abertura que o cérebro não consegue classificar rapidamente força o Sistema 2 a entrar — e o prospect presta atenção.</div>
+</div></section>
+
+<section class="pattern-section" id="padrao"><div class="container">
+  <span class="section-label">Técnica Core</span>
+  <h2>Pattern Interrupt:<br>quebre o piloto automático.</h2>
+  <p class="section-intro">O cérebro adora padrões. Quando algo não encaixa, ele para e presta atenção. Use isso.</p>
+  <div class="steps-timeline">
+    <div class="step"><div class="step-num">01</div><div class="step-content"><h3>Abra com o inesperado</h3><p>Abandone o "oi, tudo bem?" e o "me chamo X da empresa Y". Esses padrões ativam o modo rejeição imediata.</p><div class="step-script">"Oi [Nome], eu sei que você não tava esperando essa ligação..."</div></div></div>
+    <div class="step"><div class="step-num">02</div><div class="step-content"><h3>Nomeie o incômodo</h3><p>Dizer em voz alta o que o prospect está sentindo cria rapport instantâneo. O cérebro relaxa quando se sente compreendido.</p><div class="step-script">"Sei que deve estar recebendo várias ligações assim hoje — prometo ser direto."</div></div></div>
+    <div class="step"><div class="step-num">03</div><div class="step-content"><h3>Peça permissão</h3><p>A sensação de controle desativa a amígdala. Quando o prospect escolhe continuar, ele está engajado — não preso.</p><div class="step-script">"Posso te dar 40 segundos para explicar por que liguei especificamente para você?"</div></div></div>
+    <div class="step"><div class="step-num">04</div><div class="step-content"><h3>Conecte ao contexto dele</h3><p>Use uma referência específica. Especificidade = credibilidade instantânea.</p><div class="step-script">"Vi que vocês estão expandindo para o mercado ibérico — foi isso que motivou essa ligação."</div></div></div>
+    <div class="step"><div class="step-num">05</div><div class="step-content"><h3>Faça a pergunta de alto impacto</h3><p>Uma pergunta que force reflexão genuína move o prospect do modo automático para o modo ativo.</p><div class="step-script">"Como vocês estão gerenciando retenção de clientes durante essa expansão?"</div></div></div>
+  </div>
+</div></section>
+
+<section class="triggers-section" id="gatilhos"><div class="container">
+  <span class="section-label">Psicologia da Persuasão</span>
+  <h2>Gatilhos mentais que<br>funcionam em B2B.</h2>
+  <p class="section-intro">Cialdini + neurociência aplicados ao outbound. Não são manipulação — são a linguagem nativa do Sistema 1.</p>
+  <div class="triggers-grid">
+    <div class="trigger-card"><div class="t-num">Gatilho 01</div><h3>Reciprocidade</h3><p>O cérebro sente uma dívida social quando recebe valor primeiro.</p><div class="example">"Pesquisei sua empresa e notei uma oportunidade — quero compartilhar antes de qualquer coisa."</div></div>
+    <div class="trigger-card"><div class="t-num">Gatilho 02</div><h3>Escassez</h3><p>O que é raro é valioso — o cérebro avalia muito mais o que pode perder do que ganhar.</p><div class="example">"Estamos em fase piloto com 3 empresas do seu segmento — ainda há uma vaga para este mês."</div></div>
+    <div class="trigger-card"><div class="t-num">Gatilho 03</div><h3>Prova Social</h3><p>Neurônios-espelho fazem o cérebro imitar e validar escolhas de pares.</p><div class="example">"A [empresa similar] usou essa abordagem e reduziu churn em 28% em 60 dias."</div></div>
+    <div class="trigger-card"><div class="t-num">Gatilho 04</div><h3>Autoridade</h3><p>O cérebro economiza energia seguindo especialistas. Posicione-se como guia, não vendedor.</p><div class="example">"Trabalhamos com 150+ e-commerces na Europa e identificamos 3 padrões de crescimento."</div></div>
+    <div class="trigger-card"><div class="t-num">Gatilho 05</div><h3>Comprometimento</h3><p>Pequenos sins criam consistência cognitiva. O cérebro não gosta de contradição.</p><div class="example">"Posso te mandar um case de 2 páginas? Se fizer sentido, a gente fala mais."</div></div>
+    <div class="trigger-card"><div class="t-num">Gatilho 06</div><h3>Afeição</h3><p>Compramos de quem gostamos. Mirroring vocal ativa neurônios-espelho e cria conexão.</p><div class="example">Espelhe o ritmo de fala do prospect. Se direto, seja direto. Se analítico, use dados.</div></div>
+  </div>
+</div></section>
+
+<section class="errors-section" id="erros"><div class="container">
+  <span class="section-label">Erros Comuns</span>
+  <h2>Os 8 erros que sabotam<br>sua ligação antes do pitch.</h2>
+  <p class="section-intro">A maioria dos BDRs comete esses erros sem perceber — porque o treinamento tradicional ignora como o cérebro funciona.</p>
+  <div class="errors-grid">
+    <div class="error-card"><span class="e-num">01</span><h3>Começar com "Tudo bem?"</h3><p>Ativa o piloto automático de rejeição. O cérebro classifica como telemarketing em 0,3 segundos.</p><span class="fix">→ Use abertura inesperada + nomeie o incômodo</span></div>
+    <div class="error-card"><span class="e-num">02</span><h3>Pitch antes de rapport</h3><p>Entrar em features antes de criar conexão dispara a defesa da amígdala imediatamente.</p><span class="fix">→ Primeiro: escuta. Depois: contexto. Depois: pitch.</span></div>
+    <div class="error-card"><span class="e-num">03</span><h3>Falar mais do que ouvir</h3><p>BDRs que falam 70%+ do tempo têm taxa de conversão 3x menor.</p><span class="fix">→ Regra 60/40: escute mais do que fala</span></div>
+    <div class="error-card"><span class="e-num">04</span><h3>Benefícios genéricos</h3><p>"Aumentamos ROI" não ativa o Sistema 1. O cérebro ignora o que não é específico.</p><span class="fix">→ Personalize: mencione o contexto específico da empresa</span></div>
+    <div class="error-card"><span class="e-num">05</span><h3>Desistir no 1º não</h3><p>80% das vendas B2B acontecem após o 5º follow-up. O não inicial é automático.</p><span class="fix">→ O primeiro não é o Sistema 1. O sim vem do Sistema 2.</span></div>
+    <div class="error-card"><span class="e-num">06</span><h3>Não criar urgência real</h3><p>Sem deadline, o cérebro procrastina. Statu quo é o maior concorrente no B2B.</p><span class="fix">→ Calcule o custo de não agir: "cada mês sem isso custa X"</span></div>
+    <div class="error-card"><span class="e-num">07</span><h3>Tom robótico</h3><p>Neurônios-espelho detectam autenticidade. Se você soa como script, o prospect sente.</p><span class="fix">→ Pratique até o script soar como conversa natural</span></div>
+    <div class="error-card"><span class="e-num">08</span><h3>Ignorar o estado emocional</h3><p>Uma pessoa em estresse toma decisões de fuga — não de compra.</p><span class="fix">→ Pergunte: "Peguei você em mal momento?"</span></div>
+  </div>
+</div></section>
+
+<section class="script-section" id="script"><div class="container">
+  <span class="section-label">Script Completo</span>
+  <h2>O script neuro-otimizado<br>para ligações frias B2B.</h2>
+  <p class="section-intro">Cada frase é construída para respeitar como o cérebro processa informações.</p>
+  <div class="script-block">
+    <div class="script-header">Script — Ligação Fria Outbound B2B | edrone</div>
+    <div class="script-row"><div class="script-phase">Abertura</div><div class="script-text">"Oi [Nome], aqui é [Seu Nome] da edrone. Sei que você não tava esperando essa ligação — prometo ser direto e respeitar seu tempo."<div class="script-note">→ Pattern interrupt + promessa de respeito = amígdala relaxa</div></div></div>
+    <div class="script-row"><div class="script-phase">Permissão</div><div class="script-text">"Posso te dar 40 segundos para explicar por que liguei especificamente para você hoje?"<div class="script-note">→ Pedido de permissão = sensação de controle = engajamento voluntário</div></div></div>
+    <div class="script-row"><div class="script-phase">Contexto</div><div class="script-text">"Vi que a [Empresa] [contexto específico]. Empresas nesse momento geralmente enfrentam [dor específica]. Isso ressoa com vocês?"<div class="script-note">→ Especificidade = credibilidade. Pergunta = Sistema 2 ativado</div></div></div>
+    <div class="script-row"><div class="script-phase">Prova Social</div><div class="script-text">"A [empresa similar] usou nossa plataforma e [resultado em número] em [prazo]. Valeria 20 minutos para ver?"<div class="script-note">→ Prova social + incerteza estratégica = curiosidade sem pressão</div></div></div>
+    <div class="script-row"><div class="script-phase">Fechamento</div><div class="script-text">"O que funciona melhor pra você — uma call essa semana ou na próxima?"<div class="script-note">→ Escolha binária fecha sem pressão. Ambas as opções são um sim.</div></div></div>
+    <div class="script-row"><div class="script-phase">Se "não tenho tempo"</div><div class="script-text">"Perfeito — posso mandar um case de 2 páginas? Se fizer sentido, a gente marca. Se não, sem problema."<div class="script-note">→ Micro-compromisso de baixo risco. Reciprocidade ativada.</div></div></div>
+  </div>
+</div></section>
+
+<section class="neuro-section" id="framework"><div class="container">
+  <span class="section-label">Framework Proprietário</span>
+  <h2>N.E.U.R.O —<br>os 5 pilares da ligação fria.</h2>
+  <p class="section-intro">Um framework baseado em neurociência para estruturar qualquer abordagem outbound de alta performance.</p>
+  <div class="neuro-letters">
+    <div class="neuro-row"><div class="neuro-letter">N</div><div class="neuro-content"><h3>Novidade</h3><p>O cérebro é atraído pelo novo e inesperado. Abra sempre com algo que quebre o padrão esperado.</p><div class="action">→ Pattern interrupt nos primeiros 5 segundos, sem exceção.</div></div></div>
+    <div class="neuro-row"><div class="neuro-letter">E</div><div class="neuro-content"><h3>Empatia</h3><p>Neurônios-espelho criam conexão quando você demonstra entender o estado e contexto do outro.</p><div class="action">→ "Sei que você recebe muitas ligações assim — por isso vou ser direto."</div></div></div>
+    <div class="neuro-row"><div class="neuro-letter">U</div><div class="neuro-content"><h3>Urgência</h3><p>Sem custo de inação claro, o Sistema 1 não sente pressão para mudar.</p><div class="action">→ "Cada mês sem solucionar isso representa X em churn evitável."</div></div></div>
+    <div class="neuro-row"><div class="neuro-letter">R</div><div class="neuro-content"><h3>Relevância</h3><p>O cérebro filtra 99% do que ouve como ruído. Só persiste o que é pessoalmente relevante.</p><div class="action">→ Use contexto específico: nome, empresa, momento atual, dor do setor.</div></div></div>
+    <div class="neuro-row"><div class="neuro-letter">O</div><div class="neuro-content"><h3>Opção</h3><p>Autonomia é uma necessidade psicológica básica. Quando o prospect sente que está escolhendo, a resistência cai.</p><div class="action">→ Sempre feche com escolha binária, nunca com pergunta aberta.</div></div></div>
+  </div>
+</div></section>
+
+<section class="exercises-section" id="exercicios"><div class="container">
+  <span class="section-label">Prática Deliberada</span>
+  <h2>Exercícios para internalizar<br>a técnica.</h2>
+  <p class="section-intro">Conhecimento sem prática não muda comportamento. Use esses exercícios no seu ritual diário.</p>
+  <div class="exercises-grid">
+    <div class="exercise-card"><span class="e-tag">Exercício 01 — Diário</span><h3>Roleplay de Pattern Interrupt</h3><p>Em duplas, um faz o prospect resistente, outro pratica 3 aberturas diferentes.</p><div class="duration">⏱ 10 min / dia</div></div>
+    <div class="exercise-card"><span class="e-tag">Exercício 02 — Semanal</span><h3>Escuta de Gravações</h3><p>Ouça suas últimas 5 ligações focando nos primeiros 30 segundos. Mapeie quando o prospect ficou defensivo.</p><div class="duration">⏱ 20 min / semana</div></div>
+    <div class="exercise-card"><span class="e-tag">Exercício 03 — Pré-call</span><h3>Mapeamento de Estado</h3><p>Antes de cada ligação: qual a dor mais provável? Qual gatilho? Qual prova social mais próxima?</p><div class="duration">⏱ 5 min / call</div></div>
+    <div class="exercise-card"><span class="e-tag">Exercício 04 — Reflexão</span><h3>Diário de Objeções</h3><p>Registre cada objeção e redesenhe a resposta usando princípios de neurociência.</p><div class="duration">⏱ 5 min / call</div></div>
+    <div class="exercise-card"><span class="e-tag">Exercício 05 — Mensal</span><h3>Estudo de Caso Competitivo</h3><p>Analise como concorrentes do seu prospect se posicionam. Use para criar perguntas de alto impacto.</p><div class="duration">⏱ 30 min / mês</div></div>
+    <div class="exercise-card"><span class="e-tag">Exercício 06 — Mindset</span><h3>Reset de Estado Mental</h3><p>2 min de respiração rítmica antes de ligar (4s inspirar, 4s segurar, 4s expirar). Regula cortisol e melhora empatia.</p><div class="duration">⏱ 2 min / sessão</div></div>
+  </div>
+</div></section>
+
+<section class="closing-section">
+  <div class="closing-inner">
+    <p class="big-text">O cérebro já decidiu.</p>
+    <h2>A pergunta é: quem<br>vai guiar essa decisão?</h2>
+    <p>BDRs que entendem neurociência não vendem mais — eles vendem melhor. Com menos esforço, mais empatia e taxas de conversão que fazem sentido.</p>
+    <div class="hero-cta" style="justify-content:center"><a href="#topo" class="btn-primary">Voltar ao início</a></div>
+  </div>
+</section>
+
+<footer>
+  <p>Produzido por <strong>edrone BDR Academy</strong> &nbsp;·&nbsp; Neurociência aplicada a vendas B2B outbound &nbsp;·&nbsp; <strong>edrone.me</strong></p>
+</footer>
+
+</LandingLayout>

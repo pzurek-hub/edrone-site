@@ -1,0 +1,13 @@
+---
+/**
+ * Root page — geo-redirects to the appropriate locale.
+ * This is the only SSR page; all others are prerendered.
+ */
+import { getLocaleFromIp } from '../middleware';
+
+const forwarded = Astro.request.headers.get('x-forwarded-for');
+const ip = forwarded?.split(',')[0]?.trim() || Astro.clientAddress;
+const locale = getLocaleFromIp(ip);
+
+return Astro.redirect(`/${locale}/`, 302);
+---

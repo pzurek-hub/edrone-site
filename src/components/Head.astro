@@ -1,0 +1,82 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  lang?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  ogUrl?: string;
+  canonicalUrl?: string;
+  /** Google font family string, e.g. "Roboto:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900" */
+  googleFont?: string;
+  /** Additional font families to load */
+  extraGoogleFonts?: string[];
+}
+
+const {
+  title,
+  description,
+  lang = 'pl',
+  ogTitle,
+  ogDescription,
+  ogImage = 'https://wp.edrone.me/wp-content/uploads/2025/06/Funkcjonalnosci_zamowienia.png',
+  ogUrl,
+  canonicalUrl,
+  googleFont = 'Roboto:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900',
+  extraGoogleFonts = [],
+} = Astro.props;
+
+const allFonts = [googleFont, ...extraGoogleFonts].filter(Boolean);
+const fontsUrl = allFonts.length > 0
+  ? `https://fonts.googleapis.com/css2?${allFonts.map(f => `family=${f}`).join('&')}&display=swap`
+  : null;
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Google Tag Manager -->
+<script is:inline>
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PPKX7B9');
+</script>
+
+<title>{title}</title>
+<meta name="description" content={description} />
+
+<!-- Open Graph -->
+<meta property="og:title" content={ogTitle || title} />
+<meta property="og:description" content={ogDescription || description} />
+<meta property="og:type" content="website" />
+{ogUrl && <meta property="og:url" content={ogUrl} />}
+<meta property="og:image" content={ogImage} />
+<meta name="twitter:card" content="summary_large_image" />
+{canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+
+<!-- Favicons -->
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="196x196" href="/favicon-196x196.png" />
+<link rel="apple-touch-icon" href="/favicon-196x196.png" />
+
+<!-- Preconnect -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://wp.edrone.me" crossorigin />
+<link rel="preconnect" href="https://edrone.me" crossorigin />
+<link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+
+<!-- Google Fonts -->
+{fontsUrl && <link href={fontsUrl} rel="stylesheet" />}
+
+<!-- Google Analytics 4 -->
+<script is:inline>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-HT31C5LL2Q');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HT31C5LL2Q"></script>

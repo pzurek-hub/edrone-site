@@ -1,0 +1,427 @@
+---
+export const prerender = true;
+
+import LandingLayout from '../../layouts/LandingLayout.astro';
+---
+
+<LandingLayout
+  title="Automatyzacja na Shoper — 10 sklepów, 4,9 mln zł przychodu | edrone"
+  description="Pobierz darmowy ebook: jak 10 sklepów na Shoper wygenerowało 4,9 mln zł z automatyzacji marketingowej w edrone. Dane, screeny, wnioski."
+  lang="pl"
+  ogTitle="Automatyzacja na Shoper — 10 sklepów, 4,9 mln zł | edrone"
+  ogDescription="Darmowy ebook z danymi z marca 2026. Przychody, ROI i screeny 10 sklepów Shoper."
+  ogUrl="https://roi.edrone.me/shoper-automatyzacja/"
+  googleFont="Roboto:wght@300;400;500;700;900"
+>
+
+<style>
+:root {
+  --yellow: #FFFF8C;
+  --yellow-deep: #FFE600;
+  --dark: #2E2E29;
+  --ghost: #F5F3F6;
+  --warm-gray: #E8E5E0;
+  --pink: #FECACC;
+  --lavender: #A583D5;
+  --turquoise: #00FFE9;
+  --white: #FFFFFF;
+  --text: #2E2E29;
+  --text-light: #6B6B65;
+  --text-muted: #9B9B95;
+  --font-display: 'Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-outline: 'Sans Pro Outline', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-body: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body); color: var(--text);
+  background: var(--warm-gray); line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+.container { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
+
+/* HEADER */
+.header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(232,229,224,0.88);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(46,46,41,0.08);
+}
+.header-inner {
+  max-width: 1100px; margin: 0 auto; padding: 0 28px;
+  display: flex; align-items: center; justify-content: space-between; height: 64px;
+}
+.header-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.header-logo .bars { display: flex; flex-direction: column; gap: 4px; }
+.header-logo .bars span { display: block; width: 22px; height: 3px; background: var(--dark); border-radius: 1px; }
+.header-logo .wordmark { font-family: var(--font-display); font-size: 22px; font-weight: 700; color: var(--dark); font-style: italic; }
+
+.btn-dark {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--dark); color: var(--white);
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 14px; padding: 12px 28px; border-radius: 100px;
+  border: none; cursor: pointer; text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-dark:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(46,46,41,0.2); }
+
+.btn-yellow-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--yellow); color: var(--dark);
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 15px; padding: 16px 36px; border-radius: 100px;
+  border: none; cursor: pointer; text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-yellow-pill:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(255,255,140,0.4); }
+
+/* HERO */
+.hero {
+  padding: 110px 0 60px; position: relative; overflow: hidden;
+  min-height: 90vh; display: flex; align-items: center;
+}
+.hero-grid {
+  display: grid; grid-template-columns: 1fr 420px; gap: 60px; align-items: center;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-weight: 500; font-size: 13px; color: var(--text-light);
+  letter-spacing: 0.04em; margin-bottom: 24px;
+}
+.hero-badge .dot { width: 6px; height: 6px; background: var(--lavender); border-radius: 50%; }
+
+.hero h1 { font-size: 52px; line-height: 1.05; margin-bottom: 20px; }
+.hero h1 .outline { font-family: var(--font-outline); font-weight: 700; display: block; }
+.hero h1 .solid { font-family: var(--font-display); font-weight: 700; display: block; }
+.hero h1 .highlight {
+  font-family: var(--font-display); font-weight: 700;
+  background: var(--yellow); padding: 2px 8px; display: inline;
+}
+
+.hero-sub { font-size: 17px; color: var(--text-light); line-height: 1.65; margin-bottom: 28px; max-width: 480px; }
+
+.hero-stats { display: flex; gap: 32px; margin-bottom: 36px; }
+.hero-stat .num { font-family: var(--font-display); font-size: 28px; font-weight: 700; color: var(--dark); line-height: 1.1; }
+.hero-stat .label { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+.hero-form { display: flex; gap: 10px; max-width: 440px; }
+.hero-form input {
+  flex: 1; padding: 16px 20px;
+  border: 2px solid rgba(46,46,41,0.12); border-radius: 100px;
+  font-size: 15px; font-family: var(--font-body); background: var(--white);
+  transition: border-color 0.2s;
+}
+.hero-form input:focus { outline: none; border-color: var(--lavender); }
+.hero-form input::placeholder { color: var(--text-muted); }
+
+.hero-micro { font-size: 12px; color: var(--text-muted); margin-top: 12px; display: flex; gap: 16px; }
+
+/* EBOOK MOCKUP */
+.ebook-visual { position: relative; display: flex; justify-content: center; align-items: center; }
+
+.ebook-cover-card {
+  width: 340px; height: 460px; background: var(--warm-gray);
+  border: 1px solid rgba(46,46,41,0.08);
+  border-radius: 4px 12px 12px 4px; padding: 40px 32px;
+  position: relative; overflow: hidden;
+  box-shadow: -16px 16px 48px rgba(46,46,41,0.12), 0 2px 8px rgba(46,46,41,0.06);
+  transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.ebook-cover-card:hover { transform: translateY(-4px); }
+.ebook-cover-card .spine { position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: linear-gradient(to right, rgba(46,46,41,0.15), transparent); }
+.ebook-cover-card .edrone-tag { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--dark); font-style: italic; position: absolute; top: 24px; right: 28px; }
+.ebook-cover-card .title-block { margin-top: 40px; }
+.ebook-cover-card .title-highlight { font-family: var(--font-display); font-weight: 700; font-size: 28px; background: var(--yellow); padding: 4px 10px; display: inline; line-height: 1.6; }
+.ebook-cover-card .title-outline { font-family: var(--font-outline); font-weight: 700; font-size: 30px; line-height: 1.15; margin-top: 8px; color: var(--dark); }
+.ebook-cover-card .title-solid { font-family: var(--font-display); font-weight: 700; font-size: 30px; line-height: 1.15; color: var(--dark); }
+
+.ebook-decorations { position: absolute; bottom: 0; left: 0; right: 0; height: 200px; overflow: hidden; }
+.deco-bars { position: absolute; bottom: 20px; left: 24px; display: flex; align-items: flex-end; gap: 5px; }
+.deco-bars span { display: block; width: 12px; background: var(--yellow-deep); border-radius: 2px 2px 0 0; }
+.deco-bubble-1 { position: absolute; right: 20px; bottom: 60px; width: 120px; height: 85px; background: var(--pink); border-radius: 16px; transform: rotate(-8deg); }
+.deco-bubble-2 { position: absolute; right: 60px; bottom: 30px; width: 80px; height: 55px; background: var(--lavender); border-radius: 12px; transform: rotate(5deg); opacity: 0.7; }
+.deco-circle { position: absolute; right: 30px; bottom: 10px; width: 60px; height: 60px; border: 6px solid var(--lavender); border-radius: 50%; opacity: 0.5; }
+
+/* STATS STRIP */
+.stats-strip { padding: 48px 0; background: var(--white); border-top: 3px solid var(--yellow); }
+.stats-strip-inner { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
+.stat-block .num { font-family: var(--font-display); font-size: 36px; font-weight: 700; color: var(--dark); line-height: 1.1; }
+.stat-block .label { font-size: 14px; color: var(--text-light); margin-top: 4px; }
+
+/* STORES */
+.stores-section { padding: 80px 0; }
+.section-header { text-align: center; margin-bottom: 48px; }
+.section-header h2 { font-size: 38px; line-height: 1.1; margin-bottom: 12px; }
+.section-header h2 .outline { font-family: var(--font-outline); font-weight: 700; }
+.section-header h2 .solid { font-family: var(--font-display); font-weight: 700; }
+.section-header p { font-size: 17px; color: var(--text-light); max-width: 500px; margin: 0 auto; }
+
+.stores-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.store-card {
+  background: var(--white); border-radius: 16px; padding: 24px;
+  display: flex; align-items: center; gap: 18px;
+  border: 1px solid rgba(46,46,41,0.06);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.store-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(46,46,41,0.08); }
+.store-num {
+  width: 40px; height: 40px; border-radius: 50%; background: var(--yellow);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-weight: 700; font-size: 16px; color: var(--dark); flex-shrink: 0;
+}
+.store-info { flex: 1; }
+.store-info .name { font-family: var(--font-display); font-weight: 700; font-size: 15px; }
+.store-info .branch { font-size: 13px; color: var(--text-muted); }
+.store-metrics { display: flex; gap: 16px; text-align: right; }
+.store-metric .val { font-family: var(--font-display); font-weight: 700; font-size: 16px; color: var(--dark); }
+.store-metric .lbl { font-size: 11px; color: var(--text-muted); }
+
+/* WHAT'S INSIDE */
+.inside-section { padding: 80px 0; background: var(--dark); color: var(--white); position: relative; overflow: hidden; }
+.inside-section::before { content: ''; position: absolute; top: -60px; right: -60px; width: 300px; height: 300px; background: var(--lavender); border-radius: 50%; opacity: 0.08; }
+.inside-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.inside-card {
+  background: rgba(255,255,255,0.06); border-radius: 16px; padding: 32px 28px;
+  border-top: 3px solid var(--yellow); transition: background 0.2s;
+}
+.inside-card:hover { background: rgba(255,255,255,0.1); }
+.inside-card .icon { font-size: 28px; margin-bottom: 16px; display: flex; align-items: center; justify-content: center; width: 52px; height: 52px; background: rgba(255,255,140,0.12); border-radius: 12px; }
+.inside-card h3 { font-family: var(--font-display); font-weight: 700; font-size: 18px; margin-bottom: 8px; color: var(--white); }
+.inside-card p { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+/* PRO TIP */
+.protip-section { padding: 60px 0; }
+.protip-box {
+  background: var(--yellow); border-radius: 16px; padding: 40px 48px;
+  display: flex; align-items: flex-start; gap: 20px; max-width: 800px; margin: 0 auto;
+}
+.protip-box .star { font-family: var(--font-display); font-size: 28px; font-weight: 700; flex-shrink: 0; }
+.protip-box .label { font-family: var(--font-display); font-weight: 700; font-size: 15px; margin-bottom: 6px; }
+.protip-box p { font-size: 15px; color: var(--dark); line-height: 1.6; }
+
+/* SOCIAL PROOF */
+.proof-section { padding: 48px 0; text-align: center; }
+.proof-label { font-size: 12px; color: var(--text-muted); letter-spacing: 0.08em; font-weight: 500; margin-bottom: 20px; }
+.proof-logos { display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap; opacity: 0.4; }
+.proof-logos span { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--dark); }
+
+/* CTA */
+.cta-section { padding: 100px 0; background: var(--white); text-align: center; position: relative; }
+.cta-section::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 600px; height: 300px; background: radial-gradient(ellipse, rgba(255,255,140,0.3) 0%, transparent 70%); pointer-events: none; }
+.cta-section h2 { font-size: 42px; line-height: 1.1; margin-bottom: 16px; position: relative; }
+.cta-section h2 .outline { font-family: var(--font-outline); font-weight: 700; }
+.cta-section h2 .solid { font-family: var(--font-display); font-weight: 700; }
+.cta-section .sub { font-size: 18px; color: var(--text-light); max-width: 500px; margin: 0 auto 36px; }
+.cta-form-bottom { display: flex; gap: 10px; justify-content: center; max-width: 460px; margin: 0 auto; }
+.cta-form-bottom input { flex: 1; padding: 16px 24px; border: 2px solid rgba(46,46,41,0.1); border-radius: 100px; font-size: 15px; font-family: var(--font-body); background: var(--ghost); }
+.cta-form-bottom input:focus { outline: none; border-color: var(--dark); }
+.cta-trust { display: flex; justify-content: center; gap: 24px; margin-top: 16px; font-size: 13px; color: var(--text-muted); }
+
+/* FOOTER */
+.footer { padding: 28px 0; text-align: center; font-size: 13px; color: var(--text-muted); border-top: 1px solid rgba(46,46,41,0.08); }
+.footer a { color: var(--text-muted); text-decoration: none; }
+.footer a:hover { color: var(--dark); }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+.fade-up { opacity: 0; animation: fadeUp 0.6s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
+.delay-1 { animation-delay: 0.1s; } .delay-2 { animation-delay: 0.2s; } .delay-3 { animation-delay: 0.3s; } .delay-4 { animation-delay: 0.4s; }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  .ebook-visual { order: -1; }
+  .hero h1 { font-size: 38px; }
+  .stats-strip-inner { grid-template-columns: repeat(2, 1fr); }
+  .stores-grid { grid-template-columns: 1fr; }
+  .inside-grid { grid-template-columns: 1fr; }
+  .cta-form-bottom { flex-direction: column; }
+  .cta-form-bottom input, .cta-form-bottom button { width: 100%; }
+  .protip-box { flex-direction: column; padding: 28px; }
+  .section-header h2 { font-size: 30px; }
+  .cta-section h2 { font-size: 32px; }
+}
+@media (max-width: 600px) {
+  .hero h1 { font-size: 32px; }
+  .hero-form { flex-direction: column; }
+  .hero-stats { flex-wrap: wrap; gap: 16px; }
+  .stats-strip-inner { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .store-metrics { flex-direction: column; gap: 4px; }
+  .hero-micro { flex-direction: column; gap: 4px; }
+}
+</style>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <a href="https://edrone.me" class="header-logo">
+      <span class="bars"><span></span><span></span><span></span></span>
+      <span class="wordmark">edrone</span>
+    </a>
+    <a href="#download" class="btn-dark">Pobierz ebook &#8594;</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-badge fade-up"><span class="dot"></span> EBOOK · 10 CASE STUDIES · SHOPER</div>
+        <h1 class="fade-up delay-1">
+          <span class="highlight">Automatyzacja</span>
+          <span class="outline">na Shoper:</span>
+          <span class="solid">10 sklepów i ich wyniki</span>
+        </h1>
+        <p class="hero-sub fade-up delay-2">Darmowy ebook z danymi z marca 2026. Przychody, ROI, impact rate i screeny 10 sklepów, które zarabiają na automatyzacji w edrone.</p>
+        <div class="hero-stats fade-up delay-2">
+          <div class="hero-stat"><div class="num">4,9 mln zł</div><div class="label">łączny przychód</div></div>
+          <div class="hero-stat"><div class="num">23 815%</div><div class="label">najwyższy ROI</div></div>
+          <div class="hero-stat"><div class="num">10</div><div class="label">branż</div></div>
+        </div>
+        <form class="hero-form fade-up delay-3" action="#" method="POST">
+          <input type="email" name="email" placeholder="Twój adres email" required>
+          <button type="submit" class="btn-yellow-pill">Pobierz &#8594;</button>
+        </form>
+        <div class="hero-micro fade-up delay-4">
+          <span>&#10003; PDF, 15 stron</span><span>&#10003; Bez spamu</span><span>&#10003; W 60 sekund</span>
+        </div>
+      </div>
+      <div class="ebook-visual fade-up delay-2">
+        <div class="ebook-cover-card">
+          <div class="spine"></div>
+          <span class="edrone-tag">&#8801; edrone</span>
+          <div class="title-block">
+            <span class="title-highlight">Automatyzacja</span>
+            <div class="title-outline">na Shoper:</div>
+            <div class="title-solid">10 sklepów<br>i ich wyniki</div>
+          </div>
+          <div class="ebook-decorations">
+            <div class="deco-bars">
+              <span style="height:12px"></span><span style="height:18px"></span><span style="height:8px"></span>
+              <span style="height:24px"></span><span style="height:32px"></span><span style="height:20px"></span>
+              <span style="height:40px"></span><span style="height:55px"></span><span style="height:35px"></span>
+              <span style="height:65px"></span><span style="height:48px"></span><span style="height:80px"></span>
+              <span style="height:70px"></span>
+            </div>
+            <div class="deco-bubble-1"></div>
+            <div class="deco-bubble-2"></div>
+            <div class="deco-circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<section class="stats-strip">
+  <div class="container">
+    <div class="stats-strip-inner">
+      <div class="stat-block"><div class="num">4,9 mln</div><div class="label">zł przychodu z automatyzacji</div></div>
+      <div class="stat-block"><div class="num">23 815%</div><div class="label">najwyższy ROI</div></div>
+      <div class="stat-block"><div class="num">44,4%</div><div class="label">najwyższy impact rate</div></div>
+      <div class="stat-block"><div class="num">67</div><div class="label">aktywnych automatyzacji</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="proof-section">
+  <div class="container">
+    <div class="proof-label">ZAUFALI EDRONE</div>
+    <div class="proof-logos">
+      <span>Mosquito</span><span>Ryłko</span><span>Bielenda</span><span>iSpot</span>
+      <span style="font-size:14px;font-weight:500;opacity:0.7;">+1 000 sklepów</span>
+    </div>
+  </div>
+</section>
+
+<!-- STORES -->
+<section class="stores-section">
+  <div class="container">
+    <div class="section-header">
+      <h2><span class="outline">10 sklepów, 10 branż,</span> <span class="solid">1 platforma</span></h2>
+      <p>Każdy z tych sklepów działa na Shoper i korzysta z edrone. Poznaj ich wyniki.</p>
+    </div>
+    <div class="stores-grid">
+      <div class="store-card"><div class="store-num">1</div><div class="store-info"><div class="name">abfoto.pl</div><div class="branch">Foto / Elektronika</div></div><div class="store-metrics"><div class="store-metric"><div class="val">890k zł</div><div class="lbl">przychód</div></div><div class="store-metric"><div class="val">22 082%</div><div class="lbl">ROI</div></div></div></div>
+      <div class="store-card"><div class="store-num">2</div><div class="store-info"><div class="name">anhko.pl</div><div class="branch">Moda / Akcesoria</div></div><div class="store-metrics"><div class="store-metric"><div class="val">737k zł</div><div class="lbl">przychód</div></div><div class="store-metric"><div class="val">44,4%</div><div class="lbl">impact</div></div></div></div>
+      <div class="store-card"><div class="store-num">3</div><div class="store-info"><div class="name">e-daag.com.pl</div><div class="branch">Galanteria skórzana</div></div><div class="store-metrics"><div class="store-metric"><div class="val">686k zł</div><div class="lbl">przychód</div></div><div class="store-metric"><div class="val">43,1%</div><div class="lbl">impact</div></div></div></div>
+      <div class="store-card"><div class="store-num">4</div><div class="store-info"><div class="name">ukryteterapie.pl</div><div class="branch">Zdrowie / Suplementy</div></div><div class="store-metrics"><div class="store-metric"><div class="val">519k zł</div><div class="lbl">przychód</div></div><div class="store-metric"><div class="val">370k</div><div class="lbl">klientów</div></div></div></div>
+      <div class="store-card"><div class="store-num">5</div><div class="store-info"><div class="name">mawershop.pl</div><div class="branch">Moda</div></div><div class="store-metrics"><div class="store-metric"><div class="val">409k zł</div><div class="lbl">przychód</div></div><div class="store-metric"><div class="val">148k zł</div><div class="lbl">z SMS</div></div></div></div>
+      <div class="store-card"><div class="store-num">6</div><div class="store-info"><div class="name">wodamoda.pl</div><div class="branch">Napoje / Lifestyle</div></div><div class="store-metrics"><div class="store-metric"><div class="val">353k zł</div><div class="lbl">przychód</div></div><div class="store-metric"><div class="val">7 985%</div><div class="lbl">ROI</div></div></div></div>
+      <div class="store-card"><div class="store-num">7</div><div class="store-info"><div class="name">centrumelektronarzedzi.pl</div><div class="branch">Elektronarzędzia</div></div><div class="store-metrics"><div class="store-metric"><div class="val">350k zł</div><div class="lbl">przychód</div></div><div class="store-metric"><div class="val">6 355%</div><div class="lbl">ROI</div></div></div></div>
+      <div class="store-card"><div class="store-num">8</div><div class="store-info"><div class="name">meditrendy.pl</div><div class="branch">Moda / Uroda</div></div><div class="store-metrics"><div class="store-metric"><div class="val">324k zł</div><div class="lbl">przychód</div></div><div class="store-metric"><div class="val">203k</div><div class="lbl">klientów</div></div></div></div>
+      <div class="store-card"><div class="store-num">9</div><div class="store-info"><div class="name">badiconstore.com</div><div class="branch">Moda / Streetwear</div></div><div class="store-metrics"><div class="store-metric"><div class="val">323k zł</div><div class="lbl">przychód</div></div><div class="store-metric"><div class="val">33,9%</div><div class="lbl">impact</div></div></div></div>
+      <div class="store-card"><div class="store-num">10</div><div class="store-info"><div class="name">ivemax.com</div><div class="branch">Motoryzacja / Części</div></div><div class="store-metrics"><div class="store-metric"><div class="val">304k zł</div><div class="lbl">przychód</div></div><div class="store-metric"><div class="val">23 815%</div><div class="lbl">ROI</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT'S INSIDE -->
+<section class="inside-section">
+  <div class="container">
+    <div class="section-header">
+      <h2><span class="outline" style="color:rgba(255,255,255,0.6);">Co znajdziesz</span> <span class="solid" style="color:#fff;">w ebooku?</span></h2>
+      <p>Konkretne dane, screeny i wnioski — żadnego lania wody.</p>
+    </div>
+    <div class="inside-grid">
+      <div class="inside-card"><div class="icon">&#x1F4CA;</div><h3>Przychody od 303k do 890k zł</h3><p>Dokładne przychody z automatyzacji, ROI, impact rate i baza klientów — dla każdego sklepu osobno.</p></div>
+      <div class="inside-card"><div class="icon">&#x1F4F8;</div><h3>Screeny z pop-upami edrone</h3><p>Zobacz jak wyglądają sklepy z automatyzacją w akcji. 10 branż — od mody, przez suplementy, po części samochodowe.</p></div>
+      <div class="inside-card"><div class="icon">&#x1F511;</div><h3>5 wzorców najlepszych sklepów</h3><p>Co łączy sklepy z najwyższym ROI? Ile automatyzacji wystarczy? Czy SMS się opłaca? Odpowiadamy danymi.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRO TIP -->
+<section class="protip-section">
+  <div class="container">
+    <div class="protip-box">
+      <span class="star">&#10033;</span>
+      <div><div class="label">PRO TIP:</div><p>Automatyzacja w edrone integruje się z Shoper w 5 minut. Najlepsze sklepy w ebooku uruchomiły pierwsze scenariusze w dniu wdrożenia — i zobaczyły wyniki w ciągu 48 godzin.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="download">
+  <div class="container">
+    <h2><span class="outline">Twoja konkurencja</span><br><span class="solid">już to robi</span></h2>
+    <p class="sub">Wpisz email — ebook z danymi 10 sklepów Shoper przyjdzie w ciągu 60 sekund.</p>
+    <form class="cta-form-bottom" action="#" method="POST">
+      <input type="email" name="email" placeholder="Twój adres email" required>
+      <button type="submit" class="btn-dark" style="padding:16px 32px;font-size:15px;">Pobierz ebook &#8594;</button>
+    </form>
+    <div class="cta-trust"><span>&#10003; Bez spamu</span><span>&#10003; Darmowy PDF</span><span>&#10003; Dane z marca 2026</span></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container"><p>&copy; 2026 <a href="https://edrone.me">edrone</a> · CRM i Marketing Automation dla e-commerce</p></div>
+</footer>
+
+<script is:inline>
+(function(){
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var t = document.querySelector(this.getAttribute('href'));
+      if(t) t.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('fade-up'); observer.unobserve(e.target); }
+    });
+  }, {threshold:0.1});
+  document.querySelectorAll('.store-card, .inside-card, .stat-block').forEach(function(el){
+    el.style.opacity = '0'; observer.observe(el);
+  });
+})();
+</script>
+
+</LandingLayout>

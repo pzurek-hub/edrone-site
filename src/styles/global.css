@@ -1,0 +1,81 @@
+/* ══════════════════════════════════════════════════════
+   edrone Design System — Single Source of Truth
+   Source: edrone Brandbook 2025
+   ══════════════════════════════════════════════════════ */
+
+/* ── Brand Fonts ── */
+@font-face {
+  font-family: 'Sans Pro';
+  src: url('/fonts/web/sans_pro-bold-webfont.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Sans Pro Outline';
+  src: url('/fonts/web/sans_pro_outline-bold-webfont.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── CSS Variables (from Brandbook 2025) ── */
+:root {
+  /* Primary */
+  --yellow: #FFFF8C;          /* Neapolitan Yellow — CTAs, logo bg, highlights */
+  --dark: #2E2E29;             /* Tuatara/Jet — text, dark bg */
+  --white: #FFFFFF;
+
+  /* Decorative / Graphics */
+  --pink: #FECACC;            /* Pastel Pink */
+  --turquoise: #00FFE9;       /* Turquoise Blue */
+  --lavender: #A583D5;        /* Lavender */
+  --orange: #F2AB7F;          /* Middle Yellow Red */
+  --blue: #A3D7FB;            /* Non-Photo Blue */
+  --green: #54B767;           /* Emerald */
+  --ghost: #F5F3F6;           /* Ghost White — secondary bg */
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.10);
+  --shadow-xl: 0 20px 48px rgba(0,0,0,0.12);
+
+  /* Layout */
+  --radius: 16px;
+  --max-width: 1200px;
+}
+
+/* ── Reset ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--dark);
+  background: var(--white);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── Utility ── */
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+
+/* ── Brand Typography ── */
+.outline-text {
+  font-family: 'Sans Pro Outline', sans-serif;
+  font-weight: 700;
+  color: var(--dark);
+  -webkit-text-stroke: 0;
+  font-style: normal;
+}
+.outline-text-white {
+  font-family: 'Sans Pro Outline', sans-serif;
+  font-weight: 700;
+  color: var(--white);
+  -webkit-text-stroke: 0;
+  font-style: normal;
+}
+.bold-text {
+  font-family: 'Sans Pro', 'Roboto', sans-serif;
+}

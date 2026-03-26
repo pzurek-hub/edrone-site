@@ -1,0 +1,37 @@
+---
+/**
+ * LandingLayout — for standalone landing pages (no shared nav, focused on conversion)
+ * Used by: ROI calculators, ebook LPs, report LPs, campaign pages
+ * Each page brings its own header/footer inline (matching current behavior)
+ */
+import Head from '../components/Head.astro';
+import GtmNoscript from '../components/GtmNoscript.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  lang?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  ogUrl?: string;
+  canonicalUrl?: string;
+  googleFont?: string;
+  extraGoogleFonts?: string[];
+}
+
+const props = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang={props.lang || 'pl'}>
+<head>
+  <Head {...props} />
+  <slot name="head" />
+</head>
+<body>
+  <GtmNoscript />
+  <slot />
+</body>
+</html>
