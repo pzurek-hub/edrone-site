@@ -732,6 +732,74 @@ import LandingLayout from '../../../layouts/LandingLayout.astro';
       .testimonials-grid { grid-template-columns: 1fr; }
     }
 
+    /* ── POST-CALCULATOR BRIDGE ── */
+    .calc-bridge {
+      padding: 48px 24px;
+      background: var(--white);
+      text-align: center;
+    }
+    .calc-bridge-inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .calc-bridge-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(46,46,41,0.4);
+      margin-bottom: 16px;
+    }
+    .calc-bridge h3 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .calc-bridge-sub {
+      font-size: 15px;
+      color: rgba(46,46,41,0.6);
+      margin-bottom: 24px;
+    }
+    .calc-bridge-preview {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(46,46,41,0.12);
+      border: 1px solid rgba(46,46,41,0.08);
+    }
+    .calc-bridge-preview img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .calc-bridge-steps {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+    .calc-bridge-step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: rgba(46,46,41,0.6);
+    }
+    .calc-bridge-step .step-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--yellow);
+      color: var(--dark);
+      font-weight: 700;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
     /* ── TESTIMONIALS ── */
     .testimonials-section {
       padding: 64px 24px;
@@ -811,8 +879,8 @@ import LandingLayout from '../../../layouts/LandingLayout.astro';
             <span class="hero-proof-label">sklep&oacute;w w bazie</span>
           </div>
           <div class="hero-proof-item">
-            <span class="hero-proof-num">95%</span>
-            <span class="hero-proof-label">open rate SMS</span>
+            <span class="hero-proof-num">5x</span>
+            <span class="hero-proof-label">wy&zdot;szy open rate SMS vs email</span>
           </div>
           <div class="hero-proof-item">
             <span class="hero-proof-num">7x</span>
@@ -909,6 +977,32 @@ import LandingLayout from '../../../layouts/LandingLayout.astro';
       </div>
 
       <p class="result-context">Obliczenia oparte na medianie przychod&oacute;w z automatyzacji 1&nbsp;000+ sklep&oacute;w edrone w Twojej bran&zdot;y. Realne dane z ostatnich 12 miesi&eogon;cy, nie prognozy.</p>
+    </div>
+  </section>
+
+  <!-- POST-CALCULATOR BRIDGE -->
+  <section class="calc-bridge">
+    <div class="calc-bridge-inner">
+      <p class="calc-bridge-label">Oto co zobaczysz po rejestracji</p>
+      <h3>Tw&oacute;j panel edrone &mdash; gotowy do pracy od pierwszego dnia</h3>
+      <p class="calc-bridge-sub">Podpinasz sklep, wybierasz automatyzacj&eogon; i&nbsp;edrone zaczyna odzyskiwa&cacute; klient&oacute;w. Bez kodowania, bez agencji.</p>
+      <div class="calc-bridge-preview">
+        <img src="https://wp.edrone.me/wp-content/uploads/2025/06/Funkcjonalnosci_zamowienia.png" alt="Panel edrone &mdash; widok automatyzacji" loading="lazy" width="900" height="420" decoding="async">
+      </div>
+      <div class="calc-bridge-steps">
+        <div class="calc-bridge-step">
+          <span class="step-num">1</span>
+          Pod&lstrok;&aogon;cz sklep (5 min)
+        </div>
+        <div class="calc-bridge-step">
+          <span class="step-num">2</span>
+          Wybierz automatyzacj&eogon;
+        </div>
+        <div class="calc-bridge-step">
+          <span class="step-num">3</span>
+          edrone dzia&lstrok;a za Ciebie
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1185,6 +1279,60 @@ import LandingLayout from '../../../layouts/LandingLayout.astro';
     updateSliderTrack();
 
     if (subscribersEl.value) calculate();
+
+    // ── Funnel instrumentation ──
+    // Track calculator interaction start (first touch on any input)
+    let calcStarted = false;
+    [industryEl, subscribersEl, rangeEl].forEach(el => {
+      el.addEventListener('input', () => {
+        if (!calcStarted && typeof gtag === 'function') {
+          gtag('event', 'calculator_started', { page_variant: 'v2', page_location: window.location.pathname });
+          calcStarted = true;
+        }
+      });
+      el.addEventListener('change', () => {
+        if (!calcStarted && typeof gtag === 'function') {
+          gtag('event', 'calculator_started', { page_variant: 'v2', page_location: window.location.pathname });
+          calcStarted = true;
+        }
+      });
+    });
+
+    // Track bridge section visibility (post-calculator "what you'll see" section)
+    (function() {
+      const bridge = document.querySelector('.calc-bridge');
+      if (!bridge || !('IntersectionObserver' in window)) return;
+      let bridgeSeen = false;
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !bridgeSeen) {
+            bridgeSeen = true;
+            if (typeof gtag === 'function') {
+              gtag('event', 'bridge_viewed', { page_variant: 'v2', page_location: window.location.pathname });
+            }
+            obs.disconnect();
+          }
+        });
+      }, { threshold: 0.5 });
+      obs.observe(bridge);
+    })();
+
+    // Track scroll depth milestones
+    (function() {
+      const milestones = [25, 50, 75, 100];
+      const fired = {};
+      window.addEventListener('scroll', () => {
+        const scrollPct = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+        milestones.forEach(m => {
+          if (scrollPct >= m && !fired[m]) {
+            fired[m] = true;
+            if (typeof gtag === 'function') {
+              gtag('event', 'scroll_depth', { percent: m, page_variant: 'v2', page_location: window.location.pathname });
+            }
+          }
+        });
+      }, { passive: true });
+    })();
   </script>
 
 </LandingLayout>
