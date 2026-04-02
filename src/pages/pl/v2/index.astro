@@ -1,0 +1,1190 @@
+---
+export const prerender = true;
+
+import LandingLayout from '../../../layouts/LandingLayout.astro';
+---
+
+<LandingLayout
+  title="Kalkulator ROI | edrone — ile przychodu tracisz?"
+  description="Sprawdź ile dodatkowego przychodu możesz generować z automatyzacji email marketingu z edrone. Kalkulator oparty na realnych danych z 1000+ sklepów."
+  lang="pl"
+  ogTitle="Kalkulator ROI | edrone — ile przychodu traci Twój sklep?"
+  ogDescription="Oblicz w 30 sekund ile dodatkowego przychodu możesz generować z email marketingu. Dane z 1000+ sklepów."
+  ogUrl="https://roi.edrone.me/pl/v2/"
+  googleFont="Roboto:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900"
+>
+
+<style>
+    /* ── HEADER ── */
+    .header {
+      position: sticky;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(46, 46, 41, 0.08);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .header-logo svg { display: block; }
+    .btn-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--yellow);
+      color: var(--dark);
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 24px;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      font-family: inherit;
+    }
+    .btn-nav:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(255, 255, 140, 0.5);
+    }
+    .btn-nav svg { width: 14px; height: 14px; }
+
+    /* ── CTA BUTTON (black) ── */
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--dark);
+      color: var(--white);
+      font-weight: 700;
+      font-size: 17px;
+      padding: 16px 36px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      font-family: inherit;
+    }
+    .btn-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(46, 46, 41, 0.2);
+    }
+    .btn-cta .arrow { font-size: 20px; transition: transform 0.2s; }
+    .btn-cta:hover .arrow { transform: translateX(3px); }
+
+    /* ── HERO (white bg with yellow gradient cloud) ── */
+    .hero-section {
+      background: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-section::after {
+      content: '';
+      position: absolute;
+      bottom: -15%;
+      left: -10%;
+      width: 70%;
+      height: 70%;
+      background: radial-gradient(ellipse at 25% 95%, #FFFF8C 0%, #FFFF8C66 30%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 24px 88px;
+      display: grid;
+      grid-template-columns: 1fr 440px;
+      gap: 64px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    @media (max-width: 960px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 48px 20px 56px;
+      }
+    }
+
+    .hero-copy { max-width: 560px; }
+    .hero-copy .outline-text {
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.1;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .hero h1 {
+      font-family: 'Sans Pro', 'Roboto', sans-serif;
+      font-weight: 900;
+      font-size: clamp(36px, 5vw, 56px);
+      line-height: 1.08;
+      color: var(--dark);
+      margin-bottom: 20px;
+    }
+    .hero-sub {
+      font-size: 18px;
+      color: #555550;
+      line-height: 1.65;
+      max-width: 480px;
+      margin-bottom: 36px;
+      font-weight: 300;
+    }
+    .hero-proof {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+    .hero-proof-item { display: flex; flex-direction: column; }
+    .hero-proof-num {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: var(--dark);
+      font-variant-numeric: tabular-nums;
+    }
+    .hero-proof-label {
+      font-size: 12px;
+      color: #888;
+      font-weight: 400;
+    }
+
+    /* ── CALC CARD ── */
+    .calc-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 36px 32px 32px;
+      box-shadow: var(--shadow-xl);
+      position: relative;
+    }
+    .calc-card-accent {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--yellow);
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+    .calc-card-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #888;
+      margin-bottom: 28px;
+    }
+
+    .field { margin-bottom: 24px; }
+    .field:last-of-type { margin-bottom: 0; }
+    .field label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .field select,
+    .field input[type="number"] {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid rgba(46, 46, 41, 0.12);
+      border-radius: 12px;
+      font-size: 15px;
+      font-family: 'Roboto', sans-serif;
+      background: var(--white);
+      color: var(--dark);
+      transition: all 0.2s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .field select {
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%232E2E29' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      padding-right: 40px;
+      cursor: pointer;
+    }
+    .field select:focus,
+    .field input:focus {
+      outline: none;
+      border-color: var(--dark);
+      box-shadow: 0 0 0 3px rgba(255, 255, 140, 0.3);
+    }
+
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .slider-row input[type="range"] {
+      flex: 1;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 6px;
+      background: rgba(46, 46, 41, 0.12);
+      border-radius: 3px;
+      outline: none;
+    }
+    .slider-row input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 24px; height: 24px;
+      background: var(--yellow);
+      border: 3px solid var(--dark);
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(46, 46, 41, 0.15);
+    }
+    .slider-row input[type="range"]::-moz-range-thumb {
+      width: 24px; height: 24px;
+      background: var(--yellow);
+      border: 3px solid var(--dark);
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(46, 46, 41, 0.15);
+    }
+    .slider-row input[type="range"]::-moz-range-progress {
+      background: var(--dark);
+      height: 6px;
+      border-radius: 3px;
+    }
+    .slider-val {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--dark);
+      min-width: 56px;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    .field-hint {
+      font-size: 12px;
+      color: #999;
+      margin-top: 6px;
+    }
+    .field-error {
+      font-size: 12px;
+      color: #EF4444;
+      margin-top: 6px;
+      display: none;
+    }
+    .field-error.show { display: block; }
+
+    /* ── RESULTS ── */
+    .results-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 2;
+      margin-top: -40px;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: all 0.6s cubic-bezier(0.22,1,0.36,1);
+      pointer-events: none;
+      max-height: 0;
+      overflow: hidden;
+    }
+    .results-wrap.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+      max-height: 700px;
+      margin-bottom: 48px;
+    }
+    @media (max-width: 960px) {
+      .results-wrap { padding: 0 20px; margin-top: 0; }
+    }
+
+    .results-card {
+      background: var(--dark);
+      border-radius: var(--radius);
+      padding: 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+      box-shadow: var(--shadow-xl);
+    }
+    @media (max-width: 800px) {
+      .results-card {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 32px 24px;
+      }
+    }
+
+    .result-eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--yellow);
+      margin-bottom: 12px;
+    }
+    .result-amount-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .result-plus {
+      font-family: 'Sans Pro', 'Roboto', sans-serif;
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 700;
+      color: var(--yellow);
+      letter-spacing: -2px;
+    }
+    .result-number {
+      font-size: clamp(36px, 6vw, 56px);
+      font-weight: 900;
+      letter-spacing: -2px;
+      line-height: 1;
+      color: var(--white);
+      font-variant-numeric: tabular-nums;
+    }
+    .result-currency {
+      font-size: clamp(18px, 2.5vw, 24px);
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .result-period {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 4px;
+    }
+    .result-yearly {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 28px;
+    }
+    .result-yearly strong {
+      color: var(--white);
+      font-weight: 700;
+    }
+
+    .result-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--yellow);
+      color: var(--dark);
+      padding: 16px 32px;
+      border-radius: 100px;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 700;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .result-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255,255,140,0.4);
+    }
+    .result-cta svg { width: 16px; height: 16px; }
+    .result-sub {
+      display: block;
+      margin-top: 14px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* Scenarios */
+    .scenarios { display: flex; flex-direction: column; gap: 20px; }
+    .scenarios-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: rgba(255, 255, 255, 0.4);
+      margin-bottom: 4px;
+    }
+    .scenario-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+    .scenario-name {
+      font-size: 13px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .scenario-val {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+      font-variant-numeric: tabular-nums;
+    }
+    .scenario-bar {
+      height: 8px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .scenario-fill {
+      height: 100%;
+      border-radius: 4px;
+      width: 0%;
+      transition: width 1s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .scenario:nth-child(2) .scenario-fill {
+      background: linear-gradient(90deg, rgba(255,255,255,0.08), rgba(255,255,255,0.16));
+    }
+    .scenario:nth-child(3) .scenario-fill {
+      background: linear-gradient(90deg, rgba(255,255,140,0.2), rgba(255,255,140,0.35));
+    }
+    .scenario:nth-child(4) .scenario-fill {
+      background: linear-gradient(90deg, #e6e66e, var(--yellow));
+    }
+
+    .result-context {
+      grid-column: 1 / -1;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    /* ── SYSTEM PREVIEW ── */
+    .preview {
+      padding: 80px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+      content-visibility: auto;
+      contain-intrinsic-size: 0 800px;
+    }
+    .preview-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .preview-header .outline-text {
+      font-size: clamp(24px, 3vw, 36px);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .preview-header .bold-text {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 900;
+      color: var(--dark);
+      line-height: 1.1;
+    }
+    .preview-sub {
+      text-align: center;
+      font-size: 16px;
+      color: #888;
+      max-width: 520px;
+      margin: 16px auto 48px;
+      font-weight: 300;
+    }
+
+    .browser-mockup {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-xl);
+      overflow: hidden;
+      border: 1px solid rgba(46, 46, 41, 0.08);
+      max-width: 900px;
+      margin: 0 auto 48px;
+    }
+    .browser-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 18px;
+      background: var(--ghost);
+      border-bottom: 1px solid rgba(46, 46, 41, 0.08);
+    }
+    .browser-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: rgba(46, 46, 41, 0.15);
+    }
+    .browser-dot:nth-child(1) { background: #FF5F57; }
+    .browser-dot:nth-child(2) { background: #FEBC2E; }
+    .browser-dot:nth-child(3) { background: #28C840; }
+    .browser-url {
+      flex: 1;
+      margin-left: 12px;
+      background: var(--white);
+      border: 1px solid rgba(46, 46, 41, 0.08);
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 12px;
+      color: #999;
+      font-family: 'Roboto', monospace;
+    }
+    .browser-mockup img {
+      width: 100%;
+      display: block;
+      height: 420px;
+      object-fit: cover;
+      object-position: center 18%;
+    }
+
+    /* ── FEATURES SECTION (yellow bg) ── */
+    .features-section {
+      background: var(--yellow);
+      padding: 80px 0;
+    }
+    .features-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .features-header .outline-text {
+      font-size: clamp(24px, 3vw, 36px);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .features-header .bold-text {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 900;
+      color: var(--dark);
+      line-height: 1.1;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    @media (max-width: 768px) {
+      .features-grid { grid-template-columns: 1fr; gap: 20px; }
+    }
+    .feature-item {
+      padding: 32px;
+      border-radius: var(--radius);
+      background: var(--white);
+      transition: transform 0.2s;
+    }
+    .feature-item:hover { transform: translateY(-3px); }
+    .feature-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      font-size: 22px;
+      background: var(--yellow);
+    }
+    .feature-item h3 {
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--dark);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .feature-item p {
+      font-size: 15px;
+      color: #666;
+      line-height: 1.65;
+      font-weight: 300;
+    }
+
+    /* ── SOCIAL PROOF (dark bg) ── */
+    .proof {
+      padding: 64px 0;
+      background: var(--dark);
+      overflow: hidden;
+      content-visibility: auto;
+      contain-intrinsic-size: 0 300px;
+    }
+    .marquee {
+      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      margin-bottom: 36px;
+    }
+    .marquee-track {
+      display: flex;
+      gap: 64px;
+      align-items: center;
+      width: max-content;
+      animation: marqueeScroll 40s linear infinite;
+    }
+    @keyframes marqueeScroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    .marquee-track img {
+      height: 22px;
+      width: auto;
+      filter: brightness(0) invert(1);
+      opacity: 0.3;
+      transition: opacity 0.3s;
+    }
+    .marquee-track img:hover { opacity: 0.6; }
+
+    .proof-stats {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .proof-stat { text-align: center; }
+    .proof-stat-num {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      display: block;
+      font-variant-numeric: tabular-nums;
+      color: var(--white);
+    }
+    .proof-stat:nth-child(1) .proof-stat-num { color: var(--yellow); }
+    .proof-stat:nth-child(2) .proof-stat-num { color: var(--yellow); }
+    .proof-stat-label {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.4);
+      font-weight: 400;
+    }
+
+    /* ── CLOSING CTA ── */
+    .closing-cta {
+      padding: 96px 24px;
+      text-align: center;
+      background: var(--white);
+    }
+    .closing-cta .outline-text {
+      font-size: clamp(24px, 3vw, 36px);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .closing-cta .bold-text {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 900;
+      color: var(--dark);
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .closing-cta p {
+      font-size: 18px;
+      color: #888;
+      margin-bottom: 36px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+      font-weight: 300;
+    }
+    .closing-cta .btn-cta {
+      font-size: 17px;
+      padding: 18px 40px;
+    }
+    .closing-cta .cta-sub {
+      display: block;
+      margin-top: 16px;
+      font-size: 13px;
+      color: #999;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      padding: 32px 0;
+      text-align: center;
+      font-size: 13px;
+      color: #999;
+      border-top: 1px solid rgba(46, 46, 41, 0.08);
+      font-weight: 300;
+    }
+    .footer a {
+      color: #999;
+      text-decoration: none;
+    }
+    .footer a:hover { color: var(--dark); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-copy > * { opacity: 0; animation: fadeUp 0.6s forwards; }
+    .hero-copy > *:nth-child(1) { animation-delay: 0.1s; }
+    .hero-copy > *:nth-child(2) { animation-delay: 0.2s; }
+    .hero-copy > *:nth-child(3) { animation-delay: 0.3s; }
+    .hero-copy > *:nth-child(4) { animation-delay: 0.4s; }
+    .calc-card { opacity: 0; animation: fadeUp 0.7s 0.25s forwards; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .hero { padding: 36px 16px 40px; }
+      .hero-proof { gap: 20px; }
+      .calc-card { padding: 28px 20px 24px; }
+      .results-card { padding: 24px 16px; }
+      .preview { padding: 48px 16px; }
+      .proof-stats { gap: 24px; }
+      .features-section { padding: 48px 0; }
+      .closing-cta { padding: 64px 16px; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials-section {
+      padding: 64px 24px;
+      background: var(--dark);
+    }
+    .testimonials-section .container { max-width: 1000px; margin: 0 auto; }
+    .testimonials-label {
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .testimonial-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 28px 24px;
+    }
+    .testimonial-stars {
+      color: #F59E0B;
+      font-size: 16px;
+      margin-bottom: 12px;
+      letter-spacing: 2px;
+    }
+    .testimonial-quote {
+      font-size: 15px;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.6;
+      font-style: italic;
+      margin-bottom: 16px;
+    }
+    .testimonial-author {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .testimonial-role {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      margin-top: 2px;
+    }
+</style>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="https://www.edrone.me/pl" class="header-logo" target="_blank" rel="noopener" aria-label="edrone">
+        <svg width="120" height="28" viewBox="0 0 1189.5 267.3" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g fill="#2E2E29"><rect width="320.2" height="53.3"/><rect x=".1" y="214" width="320.2" height="53.3"/><rect x=".1" y="107" width="320.2" height="53.3"/></g>
+          <g fill="#2E2E29"><path d="M544.3 91.2c29.4 0 43.4 17.5 43.4 42 0 9.2-3.6 20.7-3.6 20.7h-82.9c-.4 2.2-.7 4.5-.7 6.7 0 16.8 11 30.8 32.3 30.8 19.5 0 36.2-13.3 36.2-13.3l6.3 17.3s-18.9 14.8-43.4 14.8c-33.2 0-53.7-20.2-53.7-48.5 0-37.8 27.8-70.5 66-70.5zm21.2 46.3s.4-2.5.4-6.1c0-15.3-9.2-22.9-22-22.9-16.6 0-32.1 11-39.1 29h60.7zM665 91.2c13.9 0 27.9 6.1 33.2 19.1h.4s0-4.3.9-8.3l10.3-53h21.8l-30.8 158.6H680l2.2-10.8c.7-4.5 2-8.3 2-8.3h-.4c-7.6 11.7-21.6 21.8-38.9 21.8-27.4 0-42.9-18.2-42.9-46.5 0-43.1 30.1-72.6 62.9-72.6zm-14.9 100.2c23.8 0 41.6-26.3 41.6-52.3 0-15.7-7.6-28.8-25.4-28.8-19.5 0-42 19.3-42 51.9.1 18.2 10 29.2 25.8 29.2zM752.8 93.9h21.1l-4 19.8c-.9 4.7-2.2 9.2-2.2 9.2h.2c7.6-16.2 23.1-30.3 41.1-30.3 2.9 0 5.4.2 6.7.4l-4.3 21.6c-1.6-.5-3.4-.7-6.1-.7-20.9 0-39.8 25.8-44.9 52.3l-7.9 41.3h-21.8l21.1-113.6zM879.7 91.2c31.7 0 53.9 20.2 53.9 49.6 0 39.5-35 69.4-70.1 69.4-31.9 0-54.1-20.4-54.1-50.1 0-38.9 34.6-68.9 70.3-68.9zm-15.9 100.2c23.4 0 47.6-21.3 47.6-49.4 0-18.9-13.3-31.9-31.9-31.9-24 0-47.8 21.3-47.8 49.2-.1 19.1 13.2 32.1 32.1 32.1zM964.9 93.9h21.3l-2.5 13.3c-1.1 5.4-3.1 10.8-3.1 10.8h.4c6.1-11.2 24.3-26.7 47-26.7 20.2 0 33.2 9.4 33.2 30.1 0 4.3-.7 9.2-1.6 14.4l-13.9 71.9h-21.8l13-67.2c.9-4.7 1.6-9 1.6-12.8 0-11.2-6.5-16.4-16.8-16.4-22.9 0-42.5 20.7-47.2 44.5l-9.9 51.9h-21.8l22.1-113.8zM1146.1 91.2c29.4 0 43.4 17.5 43.4 42 0 9.2-3.6 20.7-3.6 20.7H1103c-.4 2.2-.7 4.5-.7 6.7 0 16.8 11 30.8 32.3 30.8 19.5 0 36.2-13.3 36.2-13.3l6.3 17.3s-18.9 14.8-43.4 14.8c-33.2 0-53.7-20.2-53.7-48.5 0-37.8 27.9-70.5 66.1-70.5zm21.2 46.3s.4-2.5.4-6.1c0-15.3-9.2-22.9-22-22.9-16.6 0-32.1 11-39.1 29h60.7z"/></g>
+        </svg>
+      </a>
+      <a href="https://control.edrone.me/register" class="btn-nav" target="_blank" rel="noopener">
+        Testuj za darmo
+        <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <div class="hero-section">
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="outline-text">Ile przychodu</span>
+        <h1>tracisz ka&zdot;dego miesi&aogon;ca?</h1>
+        <p class="hero-sub">Wpisz liczb&eogon; subskrybent&oacute;w i bran&zdot;&eogon; &mdash; poka&zdot;emy kwot&eogon;, kt&oacute;r&aogon; zostawiasz na stole. Dane z&nbsp;1&nbsp;000+ sklep&oacute;w e-commerce w&nbsp;Polsce.</p>
+        <div class="hero-proof">
+          <div class="hero-proof-item">
+            <span class="hero-proof-num">1 000+</span>
+            <span class="hero-proof-label">sklep&oacute;w w bazie</span>
+          </div>
+          <div class="hero-proof-item">
+            <span class="hero-proof-num">16</span>
+            <span class="hero-proof-label">bran&zdot; e&#8209;commerce</span>
+          </div>
+          <div class="hero-proof-item">
+            <span class="hero-proof-num">7x</span>
+            <span class="hero-proof-label">ROI w 3 miesi&aogon;ce</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CALCULATOR CARD -->
+      <div class="calc-card">
+        <div class="calc-card-accent"></div>
+        <p class="calc-card-label">Oblicz za darmo</p>
+
+        <div class="field">
+          <label for="industry">Bran&zdot;a Twojego sklepu</label>
+          <select id="industry">
+            <option value="">Wybierz bran&zdot;&eogon;...</option>
+            <option value="ELECTRONICS">Elektronika</option>
+            <option value="SPORT_EQUIPMENT">Sprz&eogon;t sportowy</option>
+            <option value="EQUIPMENT">Wyposa&zdot;enie / RTV AGD</option>
+            <option value="VEHICLES_AND_PARTS">Samochody i cz&eogon;&sacute;ci</option>
+            <option value="HEALTH_AND_BEAUTY">Zdrowie i uroda</option>
+            <option value="ANIMALS_AND_PET_SUPPLIES">Zwierz&eogon;ta i akcesoria</option>
+            <option value="FOOD_DRINK_AND_TOBACCO">&Zdot;ywno&sacute;&cacute; i napoje</option>
+            <option value="KIDS_AND_BABIES">Dzieci i niemowl&eogon;ta</option>
+            <option value="HOME_AND_GARDEN">Dom i ogr&oacute;d</option>
+            <option value="GAMES_AND_TOYS">Gry i zabawki</option>
+            <option value="TRAVEL_ACCESSORIES">Akcesoria podr&oacute;&zdot;ne</option>
+            <option value="JEWELRY">Bi&zdot;uteria</option>
+            <option value="CLOTHES_AND_ACCESSORIES">Odzie&zdot; i akcesoria</option>
+            <option value="FURNITURE">Meble</option>
+            <option value="HEALTH_AND_WELLNESS">Zdrowie i wellness</option>
+            <option value="OTHER">Inna bran&zdot;a</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="subscribers">Liczba subskrybent&oacute;w email</label>
+          <input type="number" id="subscribers" placeholder="np. 5 000" min="100" max="500000" step="100">
+          <div class="slider-row">
+            <input type="range" id="subscribersRange" min="500" max="100000" step="500" value="5000">
+            <span class="slider-val" id="sliderVal">5 000</span>
+          </div>
+          <p class="field-hint" id="fieldHint">Wpisz lub przesu&nacute; suwak</p>
+          <p class="field-error" id="fieldError">Minimalna liczba subskrybent&oacute;w to 100</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- RESULTS -->
+  <section class="results-wrap" id="results" aria-live="polite" role="region" aria-label="Wyniki kalkulatora">
+    <div class="results-card">
+      <div class="result-left">
+        <p class="result-eyebrow">Tyle przychodu odzyskasz z edrone</p>
+        <div class="result-amount-row">
+          <span class="result-plus">+</span>
+          <span class="result-number" id="monthlyRevenue">0</span>
+          <span class="result-currency">z&lstrok;</span>
+        </div>
+        <p class="result-period">dodatkowego przychodu / miesi&aogon;c</p>
+        <p class="result-yearly">to <strong id="yearlyRevenue">0 z&lstrok;</strong> rocznie</p>
+
+        <a href="https://control.edrone.me/register" class="result-cta" target="_blank" rel="noopener">
+          Zacznij odzyskiwa&cacute; &mdash; za darmo
+          <svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <span class="result-sub">Konfiguracja w 5 minut &middot; Bez kodowania &middot; Bez karty kredytowej</span>
+      </div>
+
+      <div class="scenarios">
+        <p class="scenarios-label">Scenariusze przychodu</p>
+        <div class="scenario">
+          <div class="scenario-header">
+            <span class="scenario-name">Automatyzacje email</span>
+            <span class="scenario-val" id="s1val">0 z&lstrok;</span>
+          </div>
+          <div class="scenario-bar"><div class="scenario-fill" id="s1bar"></div></div>
+        </div>
+        <div class="scenario">
+          <div class="scenario-header">
+            <span class="scenario-name">+ Ca&lstrok;&aogon; baz&eogon; kontakt&oacute;w</span>
+            <span class="scenario-val" id="s2val">0 z&lstrok;</span>
+          </div>
+          <div class="scenario-bar"><div class="scenario-fill" id="s2bar"></div></div>
+        </div>
+        <div class="scenario">
+          <div class="scenario-header">
+            <span class="scenario-name">+ SMS marketing</span>
+            <span class="scenario-val" id="s3val">0 z&lstrok;</span>
+          </div>
+          <div class="scenario-bar"><div class="scenario-fill" id="s3bar"></div></div>
+        </div>
+      </div>
+
+      <p class="result-context">Na podstawie mediany wynik&oacute;w 1 000+ sklep&oacute;w edrone w Twojej bran&zdot;y. Realne dane, nie prognozy.</p>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS (post-calculator trust bridge) -->
+  <section class="testimonials-section">
+    <div class="container">
+      <p class="testimonials-label">4.9/5 na G2 &middot; 1 000+ sklep&oacute;w w Polsce</p>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-quote">&ldquo;Po pierwszym miesi&aogon;cu z edrone odzyskali&sacute;my 14% porzuconych koszyk&oacute;w &mdash; dodatkowe 23 tysi&aogon;ce z&lstrok;otych. Same automatyczne maile, zero r&eogon;cznej roboty.&rdquo;</p>
+          <div class="testimonial-author">Tomasz K.</div>
+          <div class="testimonial-role">W&lstrok;a&sacute;ciciel sklepu z elektronik&aogon;, Warszawa &middot; Shoper</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-quote">&ldquo;Integracja z WooCommerce zaj&eogon;&lstrok;a 20 minut. Tego samego dnia pierwsza kampania posz&lstrok;a do klient&oacute;w. Bez agencji, bez IT, po prostu dzia&lstrok;a.&rdquo;</p>
+          <div class="testimonial-author">Marta Z.</div>
+          <div class="testimonial-role">E-commerce Manager, Krak&oacute;w &middot; WooCommerce</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-quote">&ldquo;Rekomendacje produktowe edrone generuj&aogon; 18% dodatkowego przychodu. Klienci klikaj&aogon;, bo sugestie faktycznie maj&aogon; sens &mdash; nie losowe produkty jak wsz&eogon;dzie.&rdquo;</p>
+          <div class="testimonial-author">Pawe&lstrok; N.</div>
+          <div class="testimonial-role">Wsp&oacute;&lstrok;w&lstrok;a&sacute;ciciel sklepu z mod&aogon;, Pozna&nacute; &middot; IdoSell</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SYSTEM PREVIEW -->
+  <section class="preview">
+    <div class="preview-header">
+      <span class="outline-text">Tak wygl&aogon;da</span>
+      <div class="bold-text">edrone w akcji</div>
+    </div>
+    <p class="preview-sub">20+ automatyzacji uruchamiasz w kilka klikni&eogon;&cacute;. AI pisze za Ciebie newslettery. Wyniki widzisz w czasie rzeczywistym.</p>
+
+    <div class="browser-mockup">
+      <div class="browser-bar">
+        <span class="browser-dot"></span>
+        <span class="browser-dot"></span>
+        <span class="browser-dot"></span>
+        <span class="browser-url">app.edrone.me/dashboard</span>
+      </div>
+      <img src="https://wp.edrone.me/wp-content/uploads/2025/06/Funkcjonalnosci_zamowienia.png" alt="Dashboard edrone" loading="lazy" width="900" height="420" decoding="async">
+    </div>
+  </section>
+
+  <!-- FEATURES (yellow bg) -->
+  <section class="features-section">
+    <div class="container">
+      <div class="features-header">
+        <span class="outline-text">Co zyskujesz</span>
+        <div class="bold-text">z edrone?</div>
+      </div>
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-icon">&#128722;</div>
+          <h3>Odzyskuj porzucone koszyki automatycznie</h3>
+          <p>Email, SMS i WhatsApp wysy&lstrok;aj&aogon; si&eogon; same &mdash; bez Twojej pracy. Open rate SMS: 95%. Sklepy odzyskuj&aogon; &sacute;rednio 3x wi&eogon;cej zam&oacute;wie&nacute; po w&lstrok;&aogon;czeniu SMS-a.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">&#9889;</div>
+          <h3>20+ automatyzacji &mdash; w&lstrok;&aogon;czasz w minuty</h3>
+          <p>Win-back, rekomendacje po zakupie, przypomnienia o przegl&aogon;danych produktach, dynamiczne kody rabatowe. Gotowe scenariusze &mdash; klikasz i dzia&lstrok;a.</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">&#129302;</div>
+          <h3>AI pisze newslettery za Ciebie</h3>
+          <p>AI generuje gotowe newslettery produktowe z Twojego asortymentu. Ty tylko klikasz wy&sacute;lij. Multichannel daje sklepom do 35% wi&eogon;cej zam&oacute;wie&nacute;.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF (dark bg) -->
+  <section class="proof">
+    <div class="marquee">
+      <div class="marquee-track">
+        <img src="https://wp.edrone.me/wp-content/uploads/2022/08/logotypy-klienci_rylko-1.png" alt="Rylko" loading="lazy">
+        <img src="https://wp.edrone.me/wp-content/uploads/2022/08/mosquito.svg" alt="Mosquito" loading="lazy">
+        <img src="https://wp.edrone.me/wp-content/uploads/2022/08/organique.svg" alt="Organique" loading="lazy">
+        <img src="https://wp.edrone.me/wp-content/uploads/2022/08/o-bag.svg" alt="O bag" loading="lazy">
+        <img src="https://wp.edrone.me/wp-content/uploads/2022/08/logotypy-klienci_bielenda-1.png" alt="Bielenda" loading="lazy">
+        <img src="https://wp.edrone.me/wp-content/uploads/2022/08/logotypy-klienci_reporter-1.png" alt="Reporter" loading="lazy">
+        <img src="https://wp.edrone.me/wp-content/uploads/2022/08/logotypy-klienci_abra-1.png" alt="Abra" loading="lazy">
+        <img src="https://wp.edrone.me/wp-content/uploads/2022/08/logotypy-klienci_ispot-1.png" alt="iSpot" loading="lazy">
+        <img src="https://wp.edrone.me/wp-content/uploads/2022/08/logotypy-klienci._swisspng-1.png" alt="Swiss" loading="lazy">
+        <!-- Duplicate for seamless loop -->
+        <img src="https://wp.edrone.me/wp-content/uploads/2022/08/logotypy-klienci_rylko-1.png" alt="Rylko" loading="lazy">
+        <img src="https://wp.edrone.me/wp-content/uploads/2022/08/mosquito.svg" alt="Mosquito" loading="lazy">
+        <img src="https://wp.edrone.me/wp-content/uploads/2022/08/organique.svg" alt="Organique" loading="lazy">
+        <img src="https://wp.edrone.me/wp-content/uploads/2022/08/o-bag.svg" alt="O bag" loading="lazy">
+        <img src="https://wp.edrone.me/wp-content/uploads/2022/08/logotypy-klienci_bielenda-1.png" alt="Bielenda" loading="lazy">
+        <img src="https://wp.edrone.me/wp-content/uploads/2022/08/logotypy-klienci_reporter-1.png" alt="Reporter" loading="lazy">
+        <img src="https://wp.edrone.me/wp-content/uploads/2022/08/logotypy-klienci_abra-1.png" alt="Abra" loading="lazy">
+        <img src="https://wp.edrone.me/wp-content/uploads/2022/08/logotypy-klienci_ispot-1.png" alt="iSpot" loading="lazy">
+        <img src="https://wp.edrone.me/wp-content/uploads/2022/08/logotypy-klienci._swisspng-1.png" alt="Swiss" loading="lazy">
+      </div>
+    </div>
+    <div class="proof-stats">
+      <div class="proof-stat">
+        <span class="proof-stat-num">4.9/5</span>
+        <span class="proof-stat-label">Rating G2</span>
+      </div>
+      <div class="proof-stat">
+        <span class="proof-stat-num">1 000+</span>
+        <span class="proof-stat-label">Aktywnych sklep&oacute;w</span>
+      </div>
+      <div class="proof-stat">
+        <span class="proof-stat-num">7x</span>
+        <span class="proof-stat-label">&Sacute;redni ROI</span>
+      </div>
+      <div class="proof-stat">
+        <span class="proof-stat-num">25+</span>
+        <span class="proof-stat-label">Natywnych integracji</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING CTA -->
+  <section class="closing-cta">
+    <span class="outline-text">Zacznij automatyzowa&cacute;</span>
+    <div class="bold-text">sw&oacute;j sklep dzi&sacute;</div>
+    <p>1&nbsp;000+ sklep&oacute;w ju&zdot; odzyskuje przych&oacute;d z edrone. Konfiguracja zajmuje 5 minut &mdash; bez programisty.</p>
+    <a href="https://control.edrone.me/register" class="btn-cta" target="_blank" rel="noopener">
+      Za&lstrok;&oacute;&zdot; darmowe konto
+      <span class="arrow">&rarr;</span>
+    </a>
+    <span class="cta-sub">Bez karty &middot; Bez zobowi&aogon;za&nacute; &middot; Integracja z Shoper, WooCommerce, PrestaShop i IdoSell</span>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 <a href="https://www.edrone.me/pl" target="_blank" rel="noopener">edrone</a> &middot; CRM i Marketing Automation dla e-commerce</p>
+    </div>
+  </footer>
+
+  <script is:inline>
+    const INDUSTRY_DATA = {
+      ELECTRONICS:              { revPer1000: 23421.80, revUnknown1000: 17566.35, revNewsletter1000: 2342.18 },
+      SPORT_EQUIPMENT:          { revPer1000: 19991.80, revUnknown1000: 14993.85, revNewsletter1000: 1999.18 },
+      EQUIPMENT:                { revPer1000: 12752.40, revUnknown1000: 9564.30,  revNewsletter1000: 1275.24 },
+      VEHICLES_AND_PARTS:       { revPer1000: 25592.20, revUnknown1000: 19194.15, revNewsletter1000: 2559.22 },
+      HEALTH_AND_BEAUTY:        { revPer1000: 6613.60,  revUnknown1000: 4960.20,  revNewsletter1000: 661.36  },
+      ANIMALS_AND_PET_SUPPLIES: { revPer1000: 5572.00,  revUnknown1000: 4179.00,  revNewsletter1000: 557.20  },
+      FOOD_DRINK_AND_TOBACCO:   { revPer1000: 17088.00, revUnknown1000: 12816.00, revNewsletter1000: 1708.80 },
+      KIDS_AND_BABIES:          { revPer1000: 6675.80,  revUnknown1000: 5006.85,  revNewsletter1000: 667.58  },
+      HOME_AND_GARDEN:          { revPer1000: 11428.40, revUnknown1000: 8571.30,  revNewsletter1000: 1142.84 },
+      GAMES_AND_TOYS:           { revPer1000: 6448.20,  revUnknown1000: 4836.15,  revNewsletter1000: 644.82  },
+      TRAVEL_ACCESSORIES:       { revPer1000: 8608.80,  revUnknown1000: 6456.60,  revNewsletter1000: 860.88  },
+      JEWELRY:                  { revPer1000: 12126.80, revUnknown1000: 9095.10,  revNewsletter1000: 1212.68 },
+      CLOTHES_AND_ACCESSORIES:  { revPer1000: 6596.60,  revUnknown1000: 4947.45,  revNewsletter1000: 659.66  },
+      FURNITURE:                { revPer1000: 9618.40,  revUnknown1000: 7213.80,  revNewsletter1000: 961.84  },
+      HEALTH_AND_WELLNESS:      { revPer1000: 6260.80,  revUnknown1000: 4695.60,  revNewsletter1000: 626.08  },
+      OTHER:                    { revPer1000: 9618.40,  revUnknown1000: 7213.80,  revNewsletter1000: 961.84  }
+    };
+
+    const fmt = n => Math.round(n).toLocaleString('pl-PL');
+
+    const industryEl = document.getElementById('industry');
+    const subscribersEl = document.getElementById('subscribers');
+    const rangeEl = document.getElementById('subscribersRange');
+    const sliderValEl = document.getElementById('sliderVal');
+    const resultsEl = document.getElementById('results');
+    const fieldError = document.getElementById('fieldError');
+
+    rangeEl.addEventListener('input', () => {
+      const v = parseInt(rangeEl.value);
+      subscribersEl.value = v;
+      sliderValEl.textContent = fmt(v);
+      fieldError.classList.remove('show');
+      calculate();
+    });
+
+    subscribersEl.addEventListener('input', () => {
+      const v = parseInt(subscribersEl.value) || 0;
+      if (v >= 500 && v <= 100000) rangeEl.value = v;
+      sliderValEl.textContent = fmt(v || 0);
+      if (v > 0 && v < 100) { fieldError.classList.add('show'); }
+      else { fieldError.classList.remove('show'); }
+      calculate();
+    });
+
+    industryEl.addEventListener('change', calculate);
+
+    function calculate() {
+      const industry = industryEl.value;
+      const subs = parseInt(subscribersEl.value) || parseInt(rangeEl.value) || 0;
+
+      if (!industry || subs < 100) { resultsEl.classList.remove('visible'); return; }
+
+      const data = INDUSTRY_DATA[industry];
+      if (!data) return;
+
+      const rev1 = data.revPer1000 * (subs / 1000);
+      const rev2 = rev1 + (data.revUnknown1000 * (subs * 2.5 / 1000));
+      const revNL = data.revNewsletter1000 * (subs / 1000) * 2;
+      const rev3 = (rev2 + revNL) * 1.15;
+
+      animateNumber('monthlyRevenue', rev1);
+      document.getElementById('yearlyRevenue').textContent = fmt(rev1 * 12) + ' zł';
+
+      document.getElementById('s1val').textContent = fmt(rev1) + ' zł';
+      document.getElementById('s2val').textContent = fmt(rev2) + ' zł';
+      document.getElementById('s3val').textContent = fmt(rev3) + ' zł';
+
+      const maxRev = rev3;
+      setTimeout(() => { document.getElementById('s1bar').style.width = Math.max(8, (rev1 / maxRev) * 100) + '%'; }, 100);
+      setTimeout(() => { document.getElementById('s2bar').style.width = Math.max(8, (rev2 / maxRev) * 100) + '%'; }, 250);
+      setTimeout(() => { document.getElementById('s3bar').style.width = '100%'; }, 400);
+
+      resultsEl.classList.add('visible');
+
+      if (typeof gtag === 'function') {
+        gtag('event', 'calculator_result', { industry, subscribers: subs, monthly_revenue: Math.round(rev1), currency: 'PLN' });
+      }
+
+      setTimeout(() => { resultsEl.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 150);
+    }
+
+    document.querySelectorAll('a[href*="control.edrone.me/register"]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (typeof gtag === 'function') {
+          gtag('event', 'cta_click', { link_url: btn.href, link_text: btn.textContent.trim(), page_location: window.location.pathname });
+        }
+      });
+    });
+
+    let animFrame;
+    function animateNumber(elId, target) {
+      const el = document.getElementById(elId);
+      const start = parseInt(el.textContent.replace(/\s/g, '')) || 0;
+      const duration = 700;
+      const startTime = performance.now();
+
+      if (animFrame) cancelAnimationFrame(animFrame);
+
+      function tick(now) {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = fmt(Math.round(start + (target - start) * eased));
+        if (progress < 1) animFrame = requestAnimationFrame(tick);
+      }
+      animFrame = requestAnimationFrame(tick);
+    }
+
+    // UTM params forwarding
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+      const utmParams = new URLSearchParams();
+      utmKeys.forEach(k => { if (params.get(k)) utmParams.set(k, params.get(k)); });
+      if (utmParams.toString()) {
+        document.querySelectorAll('a[href*="control.edrone.me/register"]').forEach(a => {
+          const url = new URL(a.href);
+          utmParams.forEach((v, k) => url.searchParams.set(k, v));
+          a.href = url.toString();
+        });
+      }
+    })();
+
+    // Slider filled track
+    function updateSliderTrack() {
+      const min = parseInt(rangeEl.min);
+      const max = parseInt(rangeEl.max);
+      const val = parseInt(rangeEl.value);
+      const pct = ((val - min) / (max - min)) * 100;
+      rangeEl.style.background = `linear-gradient(to right, var(--dark) 0%, var(--dark) ${pct}%, rgba(46,46,41,0.12) ${pct}%, rgba(46,46,41,0.12) 100%)`;
+    }
+    rangeEl.addEventListener('input', updateSliderTrack);
+    updateSliderTrack();
+
+    if (subscribersEl.value) calculate();
+  </script>
+
+</LandingLayout>
